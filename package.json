@@ -1,5 +1,5 @@
 {
-  "name": "my-app",
+  "name": "frd-co",
   "private": true,
   "scripts": {
     "dev": "next dev",
