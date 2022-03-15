@@ -8,11 +8,9 @@ import { AppBar, Toolbar } from "@mui/material"
 const HeaderNav = () => {
   return (
     <>
-      <div className="bg-[#148F77]/[0.7] shadow-lg shadow-[#17A589] pt-1 pb-1 z-50 sticky top-0">
-        <Toolbar>
-          <TabNav />
-        </Toolbar>
-      </div>
+      <TabNav
+        className={"bg-[#148F77]/[0.7] shadow-lg shadow-[#17A589] z-50"}
+      />
       <div className="z-0 relative">
         <Image src={photo} alt="fond" width={1920} height={720} />
       </div>
