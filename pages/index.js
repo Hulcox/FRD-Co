@@ -13,14 +13,14 @@ export default function Home() {
         <CardProduct
           image={Chairs}
           title={"Modalvita"}
-          description={"Chaise moltoner en tissu d'alpaga"}
+          description={"Chaise molletonné en tissu d'alpaga"}
           width={640}
           height={800}
         />
         <CardProduct
           image={Chairs}
           title={"Modalvita"}
-          description={"Chaise moltoner en tissu d'alpaga"}
+          description={"Chaise molletonné en tissu d'alpaga"}
           width={640}
           height={800}
           reverse

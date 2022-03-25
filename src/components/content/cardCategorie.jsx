@@ -11,17 +11,17 @@ const CardCateorie = ({
       <div className="bg-salt w-1/2 box-content h-[75vh] relative">
         <Image src={img2} alt="test" layout="fill" />
         <div className="bg-white mx-32 p-4 relative my-56 shadow-lg shadow-black/50">
-          <p className=" text-center text-5xl font-bold align-baseline ">
+          <button className=" text-center text-5xl font-bold align-baseline ">
             {descpG}
-          </p>
+          </button>
         </div>
       </div>
       <div className="bg-salt w-1/2 box-content h-[75vh] relative">
         <Image src={img1} alt="test" layout="fill" />
-        <div className="bg-white mx-32 p-4 relative my-56 shadow-lg shadow-black/50">
-          <p className=" text-center text-5xl font-bold align-baseline ">
+        <div className="text-center my-56">
+          <button className="text-5xl bg-white hover:bg-blue-500 text-blue-700 font-semibold py-4 px-32 border border-blue-500 hover:border-transparent rounded relative">
             {descpD}
-          </p>
+          </button>
         </div>
       </div>
     </div>
