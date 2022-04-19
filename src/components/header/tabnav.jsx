@@ -88,7 +88,11 @@ const TabNav = ({ className, window }) => {
   return (
     <>
       {console.log(cssProperties)}
-      <AppBar position="fixed" className={className + " " + cssProperties}>
+      <AppBar
+        position="fixed"
+        className={className + " " + cssProperties}
+        enableColorOnDark
+      >
         <Toolbar
           className={cssProperties}
           onMouseEnter={onMouseEnter}
