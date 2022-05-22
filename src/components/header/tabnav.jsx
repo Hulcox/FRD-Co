@@ -11,8 +11,15 @@ import {
   Toolbar,
   useScrollTrigger,
 } from "@mui/material"
-import { AccountCircle, Mail, Notifications } from "@mui/icons-material"
+import {
+  AccountCircle,
+  Mail,
+  Notifications,
+  ShoppingCart,
+} from "@mui/icons-material"
 import { useRouter } from "next/router"
+import FDR from "../../../public/images/FRD.png"
+import Image from "next/image"
 
 const TabNav = ({ className, window }) => {
   const router = useRouter()
@@ -41,6 +48,9 @@ const TabNav = ({ className, window }) => {
   const isMenuOpen = Boolean(anchorEl)
 
   const handleProfileMenuOpen = (event) => {
+    if (1 == 1) {
+      router.push("/login/sign-in")
+    }
     setAnchorEl(event.currentTarget)
   }
 
@@ -52,14 +62,14 @@ const TabNav = ({ className, window }) => {
     if (trigger) {
       if (isHovering) {
         setCssProperties("top-[-0px] transition-all duration-300")
-        setCssPropertiesLogo("top-[1.5vh] transition-all duration-300")
+        setCssPropertiesLogo("top-[0vh] transition-all duration-300")
       } else {
         setCssProperties("top-[-35px] transition-all duration-300")
-        setCssPropertiesLogo("top-[7.5vh] transition-all duration-300")
+        setCssPropertiesLogo("top-[0vh] transition-all duration-300")
       }
     } else {
       setCssProperties("top-[0px] transition-all duration-300")
-      setCssPropertiesLogo("top-[1.5vh] transition-all duration-300")
+      setCssPropertiesLogo("top-[0vh] transition-all duration-300")
     }
   }, [trigger, isHovering])
 
@@ -88,11 +98,7 @@ const TabNav = ({ className, window }) => {
   return (
     <>
       {console.log(cssProperties)}
-      <AppBar
-        position="fixed"
-        className={className + " " + cssProperties}
-        enableColorOnDark
-      >
+      <AppBar position="fixed" className={className + " " + cssProperties}>
         <Toolbar
           className={cssProperties}
           onMouseEnter={onMouseEnter}
@@ -123,18 +129,15 @@ const TabNav = ({ className, window }) => {
               >
                 <Tab value="home" label="Home" />
                 <Tab value="product" label="Products" />
-                <Tab value="contact" label="Contact" />
               </Tabs>
             </Box>
             <div
               className={
-                "bg-[#148F77]/[0.7] w-16 h-16 shadow-lg shadow-[#17A589] rotate-45 p-2 relative " +
+                "absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2" +
                 cssPropertiesLogo
               }
             >
-              <div className="w-12 h-12 p-1 bg-white">
-                <div className="w-10 h-10 bg-black"></div>
-              </div>
+              <Image src={FDR} alt="fond" width={120} height={120} />
             </div>
             <Box
               sx={{
@@ -143,35 +146,39 @@ const TabNav = ({ className, window }) => {
                 justifyContent: "flex-end",
               }}
             >
-              <IconButton
-                size="large"
-                aria-label="show 4 new mails"
-                color="inherit"
-              >
-                <Badge badgeContent={4} color="error">
-                  <Mail />
-                </Badge>
-              </IconButton>
-              <IconButton
-                size="large"
-                aria-label="show 17 new notifications"
-                color="inherit"
-              >
-                <Badge badgeContent={17} color="error">
-                  <Notifications />
-                </Badge>
-              </IconButton>
-              <IconButton
-                size="large"
-                edge="end"
-                aria-label="account of current user"
-                aria-controls={menuId}
-                aria-haspopup="true"
-                onClick={handleProfileMenuOpen}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
+              <Box sx={{ mt: 1 }}>
+                <IconButton
+                  size="medium"
+                  aria-label="show 4 new mails"
+                  color="inherit"
+                  onClick={() => router.push("/panier")}
+                >
+                  <Badge badgeContent={4} color="error">
+                    <ShoppingCart />
+                  </Badge>
+                </IconButton>
+                <IconButton
+                  size="medium"
+                  aria-label="show 17 new notifications"
+                  color="inherit"
+                  onClick={() => router.push("/profile")}
+                >
+                  <Badge badgeContent={17} color="error">
+                    <Notifications />
+                  </Badge>
+                </IconButton>
+                <IconButton
+                  size="medium"
+                  edge="end"
+                  aria-label="account of current user"
+                  aria-controls={menuId}
+                  aria-haspopup="true"
+                  onClick={handleProfileMenuOpen}
+                  color="inherit"
+                >
+                  <AccountCircle />
+                </IconButton>
+              </Box>
             </Box>
           </Box>
         </Toolbar>

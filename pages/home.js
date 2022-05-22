@@ -20,8 +20,26 @@ export default function Home() {
 
   return (
     <div className={"Home"}>
-      <HeaderNav />
+      <HeaderNav image />
       <div className="p-10">
+        <h2 className="text-2xl font-bold align-baseline">
+          Produit Populaire :{" "}
+        </h2>
+        <CardProduct
+          image={Chairs}
+          title={"Modalvita"}
+          description={"Chaise molletonné en tissu d'alpaga"}
+          width={640}
+          height={800}
+        />
+        <CardProduct
+          image={Chairs}
+          title={"Modalvita"}
+          description={"Chaise molletonné en tissu d'alpaga"}
+          width={640}
+          height={800}
+          reverse
+        />
         <CardProduct
           image={Chairs}
           title={"Modalvita"}
@@ -43,8 +61,12 @@ export default function Home() {
           descriptionDroite={"Salon"}
           descriptionGauche={"Salle à manger"}
         />
-        <SliderProduct settings={settings} row={row} />
-        <SliderProduct settings={settings} row={row} />
+        <SliderProduct settings={settings} row={row} nameCategory={"Salon"} />
+        <SliderProduct
+          settings={settings}
+          row={row}
+          nameCategory={"Salle à manger"}
+        />
       </div>
       <FooterPage />
     </div>

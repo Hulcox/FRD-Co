@@ -7,9 +7,12 @@ const ProductPage = () => {
   return (
     <div className={"Product"}>
       <HeaderNav />
-      <div className="m-[2vw] bg-slate-200 w-[96vw]">
+      <div className="m-[1vw] my-[12vh] bg-slate-200 w-[96vw]">
         <SearchBar />
-        <ProductList />
+        <div className="flex">
+          <div className="w-[40vw] bg-gray-400">Filter</div>
+          <ProductList />
+        </div>
       </div>
       <FooterPage />
     </div>

@@ -2,12 +2,8 @@ import { useRouter } from "next/router"
 import { useEffect } from "react"
 import HeaderNav from "../src/components/header/header"
 
-const IndexPage = () => {
+const ContactPage = () => {
   const router = useRouter()
-
-  useEffect(() => {
-    router.push("/home")
-  }, [])
 
   return (
     <div>
@@ -16,4 +12,4 @@ const IndexPage = () => {
   )
 }
 
-export default IndexPage
+export default ContactPage
