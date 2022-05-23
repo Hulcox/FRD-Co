@@ -13,7 +13,7 @@ import Commande from "../src/components/panier/commande"
 import Facturation from "../src/components/panier/facturation"
 import Paiement from "../src/components/panier/paiement"
 
-const ChartPage = () => {
+const CartPage = () => {
   const router = useRouter()
   const [step, setStep] = useState(0)
 
@@ -72,4 +72,4 @@ const ChartPage = () => {
   )
 }
 
-export default ChartPage
+export default CartPage

@@ -6,10 +6,10 @@ const Commande = ({ step, handleClick }) => {
     <div className="flex justify-between">
       <div className="basis-[60%]">
         <h5 className="text-xl font-bold pb-8">Verification de la commande</h5>
-        <CartItem name={"moldativia"} price={99} quantity={2} editable />
-        <CartItem name={"moldativia"} price={99} quantity={1} editable />
-        <CartItem name={"moldativia"} price={99} quantity={1} editable />
-        <CartItem name={"moldativia"} price={99} quantity={1} editable />
+        <CartItem name={"moldativia"} price={79} quantity={1} editable />
+        <CartItem name={"Tulepor"} price={99} quantity={1} editable />
+        <CartItem name={"Cadiac"} price={129} quantity={1} editable />
+        <CartItem name={"Felix"} price={30} quantity={1} editable />
       </div>
       <div className="basis-[25%] mt-14">
         <Divider sx={{ my: 2 }} />

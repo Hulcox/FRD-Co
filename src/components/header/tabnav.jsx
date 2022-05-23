@@ -13,6 +13,7 @@ import {
 } from "@mui/material"
 import {
   AccountCircle,
+  Login,
   Mail,
   Notifications,
   ShoppingCart,
@@ -23,7 +24,7 @@ import Image from "next/image"
 
 const TabNav = ({ className, window }) => {
   const router = useRouter()
-  const [value, setValue] = useState(router.asPath.slice(1))
+  const [value, setValue] = useState(false)
   const [isHovering, setIsHovered] = useState(false)
 
   const [cssProperties, setCssProperties] = useState(className)
@@ -46,15 +47,21 @@ const TabNav = ({ className, window }) => {
   const isMenuOpen = Boolean(anchorEl)
 
   const handleProfileMenuOpen = (event) => {
-    if (1 == 1) {
-      router.push("/login/sign-in")
-    }
     setAnchorEl(event.currentTarget)
+  }
+
+  const handleMenu = (value) => {
+    router.push(value)
   }
 
   const handleMenuClose = () => {
     setAnchorEl(null)
   }
+
+  useEffect(() => {
+    if (router.asPath.slice(1) == "home" || router.asPath.slice(1) == "product")
+      setValue(router.asPath.slice(1))
+  }, [])
 
   useEffect(() => {
     if (trigger) {
@@ -76,7 +83,7 @@ const TabNav = ({ className, window }) => {
     <Menu
       anchorEl={anchorEl}
       anchorOrigin={{
-        vertical: "top",
+        vertical: "bottom",
         horizontal: "right",
       }}
       id={menuId}
@@ -88,8 +95,9 @@ const TabNav = ({ className, window }) => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={() => handleMenu("/login/sign-in")}>Sign In</MenuItem>
+      <MenuItem onClick={() => handleMenu("/login/sign-in")}>Sign Up</MenuItem>
+      <MenuItem onClick={() => handleMenu("/profile")}>Profil</MenuItem>
     </Menu>
   )
 
@@ -122,9 +130,8 @@ const TabNav = ({ className, window }) => {
               <Tabs
                 value={value}
                 onChange={handleChange}
-                textColor="secondary"
-                indicatorColor="secondary"
-                aria-label="secondary tabs example"
+                textColor="inherit"
+                indicatorColor="primary"
                 centered
                 sx={{ height: 0 }}
               >
@@ -162,7 +169,6 @@ const TabNav = ({ className, window }) => {
                   size="medium"
                   aria-label="show 17 new notifications"
                   color="inherit"
-                  onClick={() => router.push("/profile")}
                 >
                   <Badge badgeContent={17} color="error">
                     <Notifications />
@@ -182,6 +188,17 @@ const TabNav = ({ className, window }) => {
               </Box>
             </Box>
           </Box>
+          <IconButton
+            size="medium"
+            edge="end"
+            aria-haspopup="true"
+            onClick={() => {
+              router.push("/profile/back-office")
+            }}
+            color="inherit"
+          >
+            <Login />
+          </IconButton>
         </Toolbar>
       </Box>
       {renderMenu}

@@ -3,6 +3,7 @@ import HeaderNav from "../src/components/header/header"
 import Chairs from "../public/images/chairs.jpg"
 import Table from "../public/images/table.jpg"
 import Sofa from "../public/images/sofa.jpg"
+import Canape from "../public/images/canape.jpg"
 import CardCateorie from "../src/components/content/cardCategorie"
 import SliderProduct from "../src/components/content/sliderProduct"
 import FooterPage from "../src/components/footer/footer"
@@ -33,26 +34,26 @@ export default function Home() {
           height={800}
         />
         <CardProduct
-          image={Chairs}
-          title={"Modalvita"}
-          description={"Chaise molletonné en tissu d'alpaga"}
+          image={Canape}
+          title={"Tulepor"}
+          description={"Canapé en cuir"}
           width={640}
-          height={800}
+          height={426}
           reverse
         />
         <CardProduct
           image={Chairs}
-          title={"Modalvita"}
+          title={"Cadiac"}
           description={"Chaise molletonné en tissu d'alpaga"}
           width={640}
           height={800}
         />
         <CardProduct
-          image={Chairs}
-          title={"Modalvita"}
-          description={"Chaise molletonné en tissu d'alpaga"}
+          image={Canape}
+          title={"Felix"}
+          description={"Canapé en cuir"}
           width={640}
-          height={800}
+          height={426}
           reverse
         />
         <CardCateorie

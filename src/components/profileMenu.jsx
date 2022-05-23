@@ -18,6 +18,29 @@ const ProfileMenu = ({ children }) => {
         <ul className="p-1">
           <li className="my-1">
             <button
+              className={
+                "hover:bg-[#1f2937] hover:opacity-75 hover:text-white text-gray-900 group flex rounded-md items-center w-full px-2 py-2 text-xl"
+              }
+              onClick={DeletAccount}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5 mr-2"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4z" />
+                <path
+                  fillRule="evenodd"
+                  d="M3 8h14v7a2 2 0 01-2 2H5a2 2 0 01-2-2V8zm5 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              My orders
+            </button>
+          </li>
+          <li className="my-1">
+            <button
               className={`${
                 selected == "/profile/account"
                   ? "bg-[#1f2937] opacity-75 text-white"
@@ -79,13 +102,36 @@ const ProfileMenu = ({ children }) => {
                 viewBox="0 0 20 20"
                 fill="currentColor"
               >
+                <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
                 <path
                   fillRule="evenodd"
-                  d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+                  d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z"
                   clipRule="evenodd"
                 />
               </svg>
-              Delete Account
+              My credit card
+            </button>
+          </li>
+          <li className="my-1">
+            <button
+              className={
+                "hover:bg-[#1f2937] hover:opacity-75 hover:text-white text-gray-900 group flex rounded-md items-center w-full px-2 py-2 text-xl"
+              }
+              onClick={DeletAccount}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5 mr-2"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              Deconnetion
             </button>
           </li>
         </ul>

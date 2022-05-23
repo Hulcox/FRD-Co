@@ -16,7 +16,7 @@ const CartItem = ({ name, price, quantity, editable }) => {
         <div className="flex flex-col justify-around ml-4 w-full">
           <div className="flex justify-between">
             <h6 className="text-xl font-bold">{name}</h6>
-            <h6 className="text-xl font-bold">{price} €€</h6>
+            <h6 className="text-xl font-bold">{price} €</h6>
           </div>
           {editable ? (
             <div className="flex justify-between w-full h-10">

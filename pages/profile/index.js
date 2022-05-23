@@ -6,7 +6,7 @@ const ProfilePage = () => {
     <div>
       <HeaderNavBar />
       <div className="mx-auto w-1/2 mt-20 shadow-gray-100 shadow-md p-4 flex justify-between bg-slate-200 items-center rounded">
-        <h1 className="text-xl font-bold">{"My Profile"}</h1>
+        <h1 className="text-xl font-bold">{"My Profil"}</h1>
       </div>
       <ProfileMenu></ProfileMenu>
     </div>

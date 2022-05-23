@@ -122,10 +122,10 @@ const Paiement = ({ step, handleClick }) => {
       <div className="flex flex-col justify-between basis-[30%]">
         <div className="basis-[30%]">
           <h5 className="text-xl font-bold pb-8">Mon Panier</h5>
-          <CartItem name={"moldativia"} price={99} quantity={2} />
-          <CartItem name={"moldativia"} price={99} quantity={1} />
-          <CartItem name={"moldativia"} price={99} quantity={1} />
-          <CartItem name={"moldativia"} price={99} quantity={1} />
+          <CartItem name={"moldativia"} price={79} quantity={1} />
+          <CartItem name={"Tulepor"} price={99} quantity={1} />
+          <CartItem name={"Cadiac"} price={129} quantity={1} />
+          <CartItem name={"Felix"} price={30} quantity={1} />
         </div>
         <div className="basis-[30%] my-2">
           <Divider sx={{ my: 2 }} />
