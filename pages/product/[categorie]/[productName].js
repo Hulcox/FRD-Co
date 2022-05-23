@@ -14,10 +14,10 @@ const ProductDetail = () => {
   const { productName } = router.query
 
   return (
-    <div className={"Product"}>
+    <div>
       <HeaderNav />
       <div className="m-[2vw] my-[10vh] w-[96vw] h-screen">
-        <FilAriane productId={productID} />
+        <FilAriane productId={productName} />
         <Divider sx={{ m: 2 }} />
         <div className="p-8 flex">
           <div className="flex">

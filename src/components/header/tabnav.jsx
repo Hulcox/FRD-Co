@@ -26,8 +26,6 @@ const TabNav = ({ className, window }) => {
   const [value, setValue] = useState(router.asPath.slice(1))
   const [isHovering, setIsHovered] = useState(false)
 
-  console.log(router.asPath)
-
   const [cssProperties, setCssProperties] = useState(className)
   const [cssPropertiesLogo, setCssPropertiesLogo] = useState("")
 
@@ -97,7 +95,6 @@ const TabNav = ({ className, window }) => {
 
   return (
     <>
-      {console.log(cssProperties)}
       <AppBar position="fixed" className={className + " " + cssProperties}>
         <Toolbar
           className={cssProperties}
