@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react"
 import Tabs from "@mui/material/Tabs"
 import Tab from "@mui/material/Tab"
-import Box from "@mui/material/Box"
 import {
+  Box,
   AppBar,
   Badge,
   IconButton,
@@ -95,7 +95,11 @@ const TabNav = ({ className, window }) => {
 
   return (
     <>
-      <AppBar position="fixed" className={className + " " + cssProperties}>
+      <Box
+        position="fixed"
+        sx={{ width: "100vw", px: 4 }}
+        className={className + " " + cssProperties}
+      >
         <Toolbar
           className={cssProperties}
           onMouseEnter={onMouseEnter}
@@ -143,7 +147,7 @@ const TabNav = ({ className, window }) => {
                 justifyContent: "flex-end",
               }}
             >
-              <Box sx={{ mt: 1 }}>
+              <Box sx={{ mt: 1 }} className="bg-[#119DA4] rounded-md mx-4 px-4">
                 <IconButton
                   size="medium"
                   aria-label="show 4 new mails"
@@ -179,7 +183,7 @@ const TabNav = ({ className, window }) => {
             </Box>
           </Box>
         </Toolbar>
-      </AppBar>
+      </Box>
       {renderMenu}
     </>
   )

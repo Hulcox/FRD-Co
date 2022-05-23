@@ -2,6 +2,7 @@ import { ErrorMessage, Field, Form, Formik } from "formik"
 import { useRouter } from "next/router"
 import { useCallback, useContext } from "react"
 import * as Yup from "yup"
+import api from "../../src/components/api"
 import AppContext from "../../src/components/AppContext"
 import InputForm from "../../src/components/formikComponents/InputForm"
 import HeaderNav from "../../src/components/header/header"
@@ -20,11 +21,31 @@ const LoginPageSignIn = () => {
   })
 
   const handleFormSubmit = useCallback((value, { resetForm }) => {
+    console.log(value)
     try {
+      fetchRemote(value)
     } catch (error) {
       resetForm()
     }
   }, [])
+
+  const fetchRemote = (value) => {
+    console.log(value)
+    api
+      .post("/users/signIn", {
+        email: value.email,
+        password: value.password,
+      })
+      .then((res) => {
+        const data = res.data
+        console.log(data)
+        localStorage.setItem("jwt", data.token)
+        localStorage.setItem("userLevel", data.userLevel)
+        localStorage.setItem("authId", data.authId)
+        localStorage.setItem("profile", data.profile)
+      })
+      .catch((error) => {})
+  }
 
   const signUp = () => {
     router.push("/login/sign-up")
@@ -33,10 +54,7 @@ const LoginPageSignIn = () => {
   return (
     <div>
       <HeaderNav />
-      <div className="mt-20 w-1/2 mx-auto">
-        <h3 className="text-4xl font-bold leading-6 text-gray-900 p-2 mb-6">
-          Sign In
-        </h3>
+      <div className="mt-28 w-1/2 mx-auto">
         <div className="mt-5 md:mt-0 md:col-span-2">
           <Formik
             validationSchema={CommentSchema}
