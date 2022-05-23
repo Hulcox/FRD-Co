@@ -2,12 +2,12 @@ import { ErrorMessage, Field, Form, Formik } from "formik"
 import { useRouter } from "next/router"
 import { useCallback, useContext } from "react"
 import * as Yup from "yup"
-import AppContext from "../../src/components/appContext"
+import AppContext from "../../src/components/AppContext"
 import InputForm from "../../src/components/formikComponents/InputForm"
 import HeaderNav from "../../src/components/header/header"
 
 const LoginPageSignIn = () => {
-  const {} = useContext(AppContext)
+  const { user, handleSetUser } = useContext(AppContext)
   const router = useRouter()
 
   const classNames = (...classes) => {

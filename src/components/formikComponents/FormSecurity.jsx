@@ -2,7 +2,7 @@ import { ErrorMessage, Field, Form, Formik } from "formik"
 import { useRouter } from "next/router"
 import { useCallback, useContext } from "react"
 import * as Yup from "yup"
-import AppContext from "../appContext"
+import AppContext from "../AppContext"
 import InputForm from "./InputForm"
 
 const FormSecurity = ({ data }) => {
