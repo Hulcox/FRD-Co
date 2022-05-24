@@ -3,6 +3,8 @@ import HeaderNav from "../src/components/header/header"
 import Chairs from "../public/images/chairs.jpg"
 import Table from "../public/images/table.jpg"
 import Sofa from "../public/images/sofa.jpg"
+import Table2 from "../public/images/table_petit.jpg"
+import Commode from "../public/images/commode.jpg"
 import Canape from "../public/images/canape.jpg"
 import CardCateorie from "../src/components/content/cardCategorie"
 import SliderProduct from "../src/components/content/sliderProduct"
@@ -42,14 +44,14 @@ export default function Home() {
           reverse
         />
         <CardProduct
-          image={Chairs}
+          image={Table2}
           title={"Cadiac"}
           description={"Chaise molletonné en tissu d'alpaga"}
           width={640}
           height={800}
         />
         <CardProduct
-          image={Canape}
+          image={Commode}
           title={"Felix"}
           description={"Canapé en cuir"}
           width={640}
@@ -59,8 +61,8 @@ export default function Home() {
         <CardCateorie
           imageDroite={Sofa}
           imageGauche={Table}
-          descriptionDroite={"Salon"}
-          descriptionGauche={"Salle à manger"}
+          descriptionDroite={"Canapé"}
+          descriptionGauche={"Table"}
         />
         <SliderProduct settings={settings} row={row} nameCategory={"Salon"} />
         <SliderProduct

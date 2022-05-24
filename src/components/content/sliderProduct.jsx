@@ -1,5 +1,6 @@
 import Slider from "react-slick"
 import CardDetail from "./CardContent"
+import Canape from "../../../public/images/canape.jpg"
 
 const SliderProduct = ({ row, settings, nameCategory }) => {
   return (
@@ -10,10 +11,13 @@ const SliderProduct = ({ row, settings, nameCategory }) => {
       <Slider {...settings}>
         {row.map((elm) => (
           <CardDetail
-            name={"Product"}
-            description={"TEST"}
+            name={"Tulepor"}
+            description={"Canapé en cuir"}
             id={elm}
             rating={elm}
+            image={elm % 2 ? Canape : false}
+            price={99}
+            categorie={"Canape"}
           />
         ))}
       </Slider>

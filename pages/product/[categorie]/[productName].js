@@ -43,23 +43,14 @@ const ProductDetail = () => {
             </div>
             <Skeleton variant="rectangular" width={600} height={600} />
           </div>
-          <div className=" pl-14">
+          <div className="pl-14">
             <div className="flex justify-between text-4xl font-bold align-baseline">
               <h5>{productDetail}</h5>
               <h5>{"99" + " €"}</h5>
             </div>
             <Divider sx={{ mt: 2 }} />
             <div className="align-baseline pt-10">
-              <p>
-                Mensarum enim voragines et varias voluptatum inlecebras, ne
-                longius progrediar, praetermitto illuc transiturus quod quidam
-                per ampla spatia urbis subversasque silices sine periculi metu
-                properantes equos velut publicos signatis quod dicitur calceis
-                agitant, familiarium agmina tamquam praedatorios globos post
-                terga trahentes ne Sannione quidem, ut ait comicus, domi
-                relicto. quos imitatae matronae complures opertis capitibus et
-                basternis per latera civitatis cuncta discurrunt.
-              </p>
+              <p>Canapé en cuir de vache issue d'un elevage en Toscane</p>
               <div className="mt-12">
                 <Rating
                   name="simple-controlled"

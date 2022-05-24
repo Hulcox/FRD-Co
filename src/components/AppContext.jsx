@@ -6,8 +6,8 @@ export const AppContextProvider = (props) => {
   const [user, setUser] = useState("")
   const [categorie, setCategorie] = useState([])
   const [product, setProduct] = useState([])
-  const [categorieDetail, setCategorieDetail] = useState("Salon")
-  const [productDetail, setProductDetail] = useState("Moldativia")
+  const [categorieDetail, setCategorieDetail] = useState("Canapé")
+  const [productDetail, setProductDetail] = useState("Tulepor")
 
   const handleSetUser = useCallback((value) => {
     setUser(value)
