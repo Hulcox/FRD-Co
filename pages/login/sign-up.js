@@ -74,6 +74,7 @@ const LoginPageSignUp = () => {
             localStorage.setItem("userLevel", data.userLevel)
             localStorage.setItem("authId", data.authId)
             localStorage.setItem("profile", data.profile)
+            router.push("/home")
           })
       })
       .catch((error) => console.log(error))
