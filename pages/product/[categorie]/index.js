@@ -13,7 +13,7 @@ const CategoriePage = () => {
       <div className="m-[1vw] my-[12vh] bg-slate-200 w-[96vw]">
         <SearchBar />
         <div className="flex">
-          <div className="w-[40vw] bg-slate-400">
+          <div className="w-1/2 bg-slate-400">
             Filter
             <button onClick={handleClick}>Click</button>
           </div>

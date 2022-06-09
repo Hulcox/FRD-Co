@@ -1,19 +1,3 @@
-import { useRouter } from "next/router"
-import { useEffect } from "react"
-import HeaderNav from "../src/components/header/header"
+const Index = () => null
 
-const IndexPage = () => {
-  const router = useRouter()
-
-  useEffect(() => {
-    router.push("/home")
-  }, [])
-
-  return (
-    <div>
-      <HeaderNav />
-    </div>
-  )
-}
-
-export default IndexPage
+export default Index
