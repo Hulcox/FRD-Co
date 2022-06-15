@@ -17,6 +17,8 @@ const CardDetail = ({
   image,
   price,
   categorie,
+  color,
+  stock,
 }) => {
   const router = useRouter()
   const [value, setValue] = useState(rating)
@@ -26,47 +28,50 @@ const CardDetail = ({
     else router.push("/product/all/" + name)
   }
 
-  return (
-    <div>
-      {" "}
-      <Card sx={{ maxWidth: 345, m: 2 }}>
-        <CardActionArea onClick={handleClick}>
-          <CardContent>
-            {image ? (
-              <Image
-                src={image}
-                alt="cardContent"
-                width={300}
-                height={210}
-                sx={{ mx: "auto" }}
+  if (stock == 0) return null
+  //don't show product with no stock
+  else
+    return (
+      <div>
+        {" "}
+        <Card sx={{ maxWidth: 345, m: 2 }}>
+          <CardActionArea onClick={handleClick}>
+            <CardContent>
+              <div class="m-auto h-[250px] w-[300px]">
+                {image ? (
+                  <img
+                    className="m-auto max-h-[250px] max-w-[300px] align-baseline"
+                    src={image}
+                    alt={"Product picture: " + name}
+                  />
+                ) : (
+                  <Skeleton
+                    variant="rectangular"
+                    width={300}
+                    height={250}
+                    sx={{ mx: "auto" }}
+                  />
+                )}
+              </div>
+              <div className="flex justify-between mt-2">
+                <h5 className="text-xl font-bold align-baseline">{name}</h5>
+                <h5 className="text-xl font-bold align-baseline">
+                  {price ? price + " €" : null}
+                </h5>
+              </div>
+              <p>{description}</p>
+              <Rating
+                name="simple-controlled"
+                value={value}
+                onChange={(event, newValue) => {
+                  setValue(newValue)
+                }}
               />
-            ) : (
-              <Skeleton
-                variant="rectangular"
-                width={300}
-                height={210}
-                sx={{ mx: "auto" }}
-              />
-            )}
-            <div className="flex justify-between">
-              <h5 className="text-xl font-bold align-baseline">{name}</h5>
-              <h5 className="text-xl font-bold align-baseline">
-                {price + " €"}
-              </h5>
-            </div>
-            <p>{description}</p>
-            <Rating
-              name="simple-controlled"
-              value={value}
-              onChange={(event, newValue) => {
-                setValue(newValue)
-              }}
-            />
-          </CardContent>
-        </CardActionArea>
-      </Card>
-    </div>
-  )
+            </CardContent>
+          </CardActionArea>
+        </Card>
+      </div>
+    )
 }
 
 export default CardDetail

@@ -6,7 +6,7 @@ export const AppContextProvider = (props) => {
   const [user, setUser] = useState("")
   const [categorie, setCategorie] = useState([])
   const [product, setProduct] = useState([])
-  const [categorieDetail, setCategorieDetail] = useState("Canapé")
+  const [categorieDetail, setCategorieDetail] = useState(null)
   const [productDetail, setProductDetail] = useState("Tulepor")
   const [colorList, setColorList] = useState([
     "red",
@@ -14,7 +14,7 @@ export const AppContextProvider = (props) => {
     "black",
     "white",
     "green",
-    "gray",
+    "grey",
     "pink",
   ])
   const [colorFilter, setColorFilter] = useState(null)

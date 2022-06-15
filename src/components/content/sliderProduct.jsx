@@ -9,11 +9,12 @@ const SliderProduct = ({ row, settings, nameCategory }) => {
         Produit de la catégorie : {nameCategory}
       </h2>
       <Slider {...settings}>
-        {row.map((elm) => (
+        {row.map((elm, key) => (
           <CardDetail
             name={"Tulepor"}
             description={"Canapé en cuir"}
             id={elm}
+            key={key}
             rating={elm}
             image={elm % 2 ? Canape : false}
             price={99}

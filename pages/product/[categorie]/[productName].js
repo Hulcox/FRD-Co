@@ -7,11 +7,13 @@ import AppContext from "../../../src/components/AppContext"
 import { useContext, useState } from "react"
 
 const ProductDetail = () => {
-  const { productDetail, setProductDetail } = useContext(AppContext)
+  const { productDetail, setProductDetail, categorie } = useContext(AppContext)
   const [value, setValue] = useState(2)
 
   const router = useRouter()
   const { productName } = router.query
+
+  console.log(categorie)
 
   return (
     <div>
