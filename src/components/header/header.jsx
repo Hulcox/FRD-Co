@@ -7,7 +7,7 @@ const HeaderNav = ({ image }) => {
   return (
     <>
       <TabNav
-        className={"bg-[#119DA4]/[0.7] shadow-lg shadow-[#119DA4] z-50"}
+        className={"bg-[#6667ab]/[0.8] shadow-lg shadow-[#373d7b] z-50"}
       />
       {image ? (
         <div className="z-0 relative">

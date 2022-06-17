@@ -22,7 +22,7 @@ export default function Home() {
   const row = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
   return (
-    <div className={"Home"}>
+    <div className="bg-white">
       <HeaderNav image />
       <div className="p-10">
         <h2 className="text-2xl font-bold align-baseline">

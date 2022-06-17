@@ -24,8 +24,8 @@ const CardDetail = ({
   const [value, setValue] = useState(rating)
 
   const handleClick = () => {
-    if (categorie) router.push("/product/" + categorie + "/" + name)
-    else router.push("/product/all/" + name)
+    if (categorie) router.push("/products/" + categorie + "/" + name)
+    else router.push("/products/all/" + name)
   }
 
   if (stock == 0) return null

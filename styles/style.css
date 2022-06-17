@@ -2,3 +2,8 @@
 .slick-next:before {
   color: black;
 }
+
+body {
+  margin: 0;
+  padding: 0;
+}

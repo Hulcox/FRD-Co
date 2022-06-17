@@ -59,7 +59,10 @@ const TabNav = ({ className, window }) => {
   }
 
   useEffect(() => {
-    if (router.asPath.slice(1) == "home" || router.asPath.slice(1) == "product")
+    if (
+      router.asPath.slice(1) == "home" ||
+      router.asPath.slice(1) == "products"
+    )
       setValue(router.asPath.slice(1))
   }, [])
 
@@ -136,7 +139,7 @@ const TabNav = ({ className, window }) => {
                 sx={{ height: 0 }}
               >
                 <Tab value="home" label="Home" />
-                <Tab value="product" label="Products" />
+                <Tab value="products" label="Products" />
               </Tabs>
             </Box>
             <div
@@ -154,7 +157,7 @@ const TabNav = ({ className, window }) => {
                 justifyContent: "flex-end",
               }}
             >
-              <Box sx={{ mt: 1 }} className="bg-[#119DA4] rounded-md mx-4 px-4">
+              <Box sx={{ mt: 1 }} className="bg-[#9695dd] rounded-md mx-4 px-4">
                 <IconButton
                   size="medium"
                   aria-label="show 4 new mails"

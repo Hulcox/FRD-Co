@@ -8,6 +8,7 @@ import FilterProvider from "../../../src/components/filtre/filtreProvider"
 import FooterPage from "../../../src/components/footer/footer"
 import HeaderNav from "../../../src/components/header/header"
 import { useRouter } from "next/router"
+import FilAriane from "../../../src/components/content/FilAriane"
 
 const CategoriePage = () => {
   const {
@@ -22,12 +23,8 @@ const CategoriePage = () => {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
 
-  const handleClick = () => {
-    api.get("/users")
-  }
-
   useEffect(() => {
-    console.log(categorie)
+    console.log(router)
     if (!loading)
       api
         .get("/products/salon")
@@ -61,17 +58,20 @@ const CategoriePage = () => {
 
   console.log(product)
   return (
-    <div className={"Product"}>
+    <div className="bg-[#c2c6c8]">
       <HeaderNav />
-      <div className="m-[1vw] my-[12vh] bg-slate-200 w-[96vw]">
+      <div className="m-[1vw] mt-[12vh]">
         <SearchBar />
+        <div className="w-full p-4">
+          <FilAriane productId={1} />
+        </div>
+      </div>
+      <div className="m-[1vw] bg-slate-200 w-[96vw] rounded-lg">
         <div className="flex">
-          <div className="w-[15vw] bg-gray-400 min-h-screen">
-            Filter
-            <button onClick={handleClick}>Click</button>
+          <div className="w-[15vw] bg-[#929597] min-h-screen rounded-tl-lg">
             <FilterProvider />
           </div>
-          {!loading ? (
+          {product.length == 0 ? (
             <div className="w-[10%] mx-auto flex justify-center items-center">
               <CircularProgress />
             </div>

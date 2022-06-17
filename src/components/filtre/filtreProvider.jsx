@@ -7,7 +7,7 @@ import FilterPrice from "./filtrePrice"
 const FilterProvider = () => {
   const { colorList } = useContext(AppContext)
   return (
-    <div>
+    <div className="mt-12">
       <FilterPrice />
       <FilterNotation />
       <FilterColors colors={colorList} />
