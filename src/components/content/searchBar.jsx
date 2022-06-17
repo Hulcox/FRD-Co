@@ -20,7 +20,6 @@ const SearchBar = () => {
     setCategorieDetail(event.target.value)
     router.push("/product/" + event.target.value)
   }
-  console.log(router)
   return (
     <div>
       <div className="text-center bg-white p-2 shadow-md shadow-black/50 w-full mx-auto flex justify-start ">

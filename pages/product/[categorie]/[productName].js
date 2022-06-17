@@ -4,16 +4,20 @@ import { useRouter } from "next/router"
 import FilAriane from "../../../src/components/content/FilAriane"
 import { Divider, Rating, Skeleton, Typography } from "@mui/material"
 import AppContext from "../../../src/components/AppContext"
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 
 const ProductDetail = () => {
-  const { productDetail, setProductDetail, categorie } = useContext(AppContext)
+  const {
+    productDetail,
+    setProductDetail,
+    categorieDetail,
+    setCategorieDetail,
+  } = useContext(AppContext)
   const [value, setValue] = useState(2)
 
   const router = useRouter()
-  const { productName } = router.query
 
-  console.log(categorie)
+  const { productName } = router.query
 
   return (
     <div>
