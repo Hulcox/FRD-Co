@@ -1,6 +1,7 @@
 import styled from "@emotion/styled"
 import { Done, KeyboardArrowDown, Search } from "@mui/icons-material"
 import {
+  Autocomplete,
   Button,
   FormControl,
   Input,
@@ -8,6 +9,7 @@ import {
   Menu,
   MenuItem,
   Select,
+  TextField,
 } from "@mui/material"
 import { useRouter } from "next/router"
 import { useContext, useEffect, useState } from "react"
@@ -28,6 +30,7 @@ const SearchBar = () => {
     setCategorieDetail,
     productDetail,
     setProductDetail,
+    product,
   } = useContext(AppContext)
   const router = useRouter()
 
@@ -71,8 +74,18 @@ const SearchBar = () => {
           </FormControl>
         </div>
         <div className="mx-auto self-center">
-          <Input sx={{ width: "30vw" }} />
-          <Search sx={{ ml: 2 }} />
+          <Autocomplete
+            disablePortal
+            options={product}
+            getOptionLabel={(option) => option.name}
+            sx={{ width: "30vw" }}
+            renderInput={(params) => (
+              <div className="flex items-center">
+                <TextField {...params} variant="standard" />
+                <Search sx={{ ml: 2 }} />
+              </div>
+            )}
+          />
         </div>
         <div className="self-center mx-2">
           <Button

@@ -20,6 +20,8 @@ export const AppContextProvider = (props) => {
   const [colorFilter, setColorFilter] = useState(null)
   const [noteFilter, setNoteFilter] = useState(null)
   const [priceFilter, setPriceFilter] = useState([0, 1000])
+  const [orders, setOrders] = useState([])
+  const [users, setUsers] = useState([])
 
   const handleSetUser = useCallback((value) => {
     setUser(value)
@@ -47,6 +49,10 @@ export const AppContextProvider = (props) => {
         setNoteFilter,
         priceFilter,
         setPriceFilter,
+        orders,
+        setOrders,
+        users,
+        setUsers,
       }}
     />
   )

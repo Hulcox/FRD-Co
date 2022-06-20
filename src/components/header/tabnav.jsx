@@ -101,6 +101,7 @@ const TabNav = ({ className, window }) => {
       <MenuItem onClick={() => handleMenu("/login/sign-in")}>Sign In</MenuItem>
       <MenuItem onClick={() => handleMenu("/login/sign-in")}>Sign Up</MenuItem>
       <MenuItem onClick={() => handleMenu("/profile")}>Profil</MenuItem>
+      <MenuItem onClick={() => handleMenu("/backoffice")}>Back-Office</MenuItem>
     </Menu>
   )
 

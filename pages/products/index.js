@@ -4,7 +4,7 @@ import FooterPage from "../../src/components/footer/footer"
 import HeaderNav from "../../src/components/header/header"
 import api from "../../src/components/api"
 import FilterProvider from "../../src/components/filtre/filtreProvider"
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useState } from "react"
 import AppContext from "../../src/components/AppContext"
 import { CircularProgress } from "@mui/material"
 import FilAriane from "../../src/components/content/FilAriane"
@@ -19,21 +19,38 @@ const ProductPage = () => {
     categorieDetail,
   } = useContext(AppContext)
 
+  const [loading, setLoading] = useState(false)
+
   useEffect(() => {
-    api
-      .post("/products/filter", {
-        price: null,
-        rate: noteFilter,
-        color: colorFilter,
-        category: categorieDetail,
-      })
-      .then((res) => {
-        console.log(res)
-        setProduct(res.data)
-      })
-      .catch((error) => {
-        console.error(error)
-      })
+    if (!loading)
+      api
+        .get("/products")
+        .then((res) => {
+          console.log(res)
+          setLoading(true)
+          setProduct(res.data)
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+  }, [])
+
+  useEffect(() => {
+    if (loading)
+      api
+        .post("/products/filter", {
+          price: null,
+          rate: noteFilter,
+          color: colorFilter,
+          category: categorieDetail,
+        })
+        .then((res) => {
+          console.log(res)
+          setProduct(res.data)
+        })
+        .catch((error) => {
+          console.error(error)
+        })
   }, [priceFilter, noteFilter, colorFilter, categorieDetail])
 
   console.log(product, product.length)

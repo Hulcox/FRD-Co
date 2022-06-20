@@ -37,7 +37,7 @@ const CardDetail = ({
         <Card sx={{ maxWidth: 345, m: 2 }}>
           <CardActionArea onClick={handleClick}>
             <CardContent>
-              <div class="m-auto h-[250px] w-[300px]">
+              <div className="m-auto h-[250px] w-[300px]">
                 {image ? (
                   <img
                     className="m-auto max-h-[250px] max-w-[300px] align-baseline"
