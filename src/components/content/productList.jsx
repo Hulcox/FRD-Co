@@ -17,7 +17,7 @@ const ProductList = ({ filtreCategorie, product }) => {
             description={elm.description}
             id={elm.id}
             rating={elm.rate}
-            image={elm.images}
+            image1={elm.image1}
             price={elm.price}
             categorie={elm.category}
             stock={elm.stock}

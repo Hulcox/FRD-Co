@@ -22,7 +22,7 @@ const optionsMenu = [
   "Note (croissant)",
 ]
 
-const optionsCategorie = ["Chaise", "Canape", "Table", "Lit"]
+const optionsCategorie = ["all", "chaise", "canape", "table", "lit"]
 
 const SearchBar = () => {
   const {
@@ -52,7 +52,8 @@ const SearchBar = () => {
 
   const handleChange = (event) => {
     setCategorieDetail(event.target.value)
-    router.push("/products/" + event.target.value)
+    if (event.target.value == "All") router.push("/products")
+    else router.push("/products?categorie=" + event.target.value)
   }
   return (
     <>

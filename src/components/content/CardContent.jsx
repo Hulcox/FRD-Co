@@ -14,7 +14,7 @@ const CardDetail = ({
   description,
   id,
   rating,
-  image,
+  image1,
   price,
   categorie,
   color,
@@ -24,7 +24,11 @@ const CardDetail = ({
   const [value, setValue] = useState(rating)
 
   const handleClick = () => {
-    if (categorie) router.push("/products/" + categorie + "/" + name)
+    if (categorie)
+      router.push({
+        pathname: "/products/" + name,
+        query: { categorie: categorie, id: id },
+      })
     else router.push("/products/all/" + name)
   }
 
@@ -38,10 +42,10 @@ const CardDetail = ({
           <CardActionArea onClick={handleClick}>
             <CardContent>
               <div className="m-auto h-[250px] w-[300px]">
-                {image ? (
+                {image1 ? (
                   <img
                     className="m-auto max-h-[250px] max-w-[300px] align-baseline"
-                    src={image}
+                    src={image1}
                     alt={"Product picture: " + name}
                   />
                 ) : (
