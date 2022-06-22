@@ -1,7 +1,9 @@
 import { useRouter } from "next/router"
-import { useState } from "react"
+import { useContext, useState } from "react"
+import AppContext from "./AppContext"
 
 const ProfileMenu = ({ children }) => {
+  const { setUserLevel } = useContext(AppContext)
   const router = useRouter()
   const selected = router.asPath
   const handleRoute = (href) => {
@@ -10,6 +12,13 @@ const ProfileMenu = ({ children }) => {
   }
 
   const DeletAccount = () => {}
+
+  const Logout = () => {
+    localStorage.removeItem("token")
+    localStorage.removeItem("userLevel")
+    setUserLevel("nc")
+    router.push("/home")
+  }
 
   console.log(selected)
   return (
@@ -117,7 +126,7 @@ const ProfileMenu = ({ children }) => {
               className={
                 "hover:bg-[#1f2937] hover:opacity-75 hover:text-white text-gray-900 group flex rounded-md items-center w-full px-2 py-2 text-xl"
               }
-              onClick={DeletAccount}
+              onClick={Logout}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

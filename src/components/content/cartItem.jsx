@@ -11,15 +11,15 @@ const CartItem = ({ name, price, quantity, id, img, editable }) => {
         <div>
           {img ? (
             <img
-              className="m-auto max-h-[250px] max-w-[300px] align-baseline"
+              className="m-auto max-h-[150px] max-w-[150px] align-baseline"
               src={img}
               alt={"Product picture: " + name}
             />
           ) : (
             <Skeleton
               variant="rectangular"
-              width={100}
-              height={100}
+              width={150}
+              height={150}
               sx={{ mb: 2 }}
             />
           )}

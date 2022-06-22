@@ -1,3 +1,4 @@
+import { Button } from "@mui/material"
 import { ErrorMessage, Field, Form, Formik } from "formik"
 import { useRouter } from "next/router"
 import { useCallback, useContext } from "react"
@@ -8,7 +9,7 @@ import InputForm from "../../src/components/formikComponents/InputForm"
 import HeaderNav from "../../src/components/header/header"
 
 const LoginPageSignIn = () => {
-  const { user, handleSetUser } = useContext(AppContext)
+  const { userLevel, setUserLevel } = useContext(AppContext)
   const router = useRouter()
 
   const classNames = (...classes) => {
@@ -39,10 +40,9 @@ const LoginPageSignIn = () => {
       .then((res) => {
         const data = res.data
         console.log(data)
-        localStorage.setItem("jwt", data.token)
-        localStorage.setItem("userLevel", data.userLevel)
-        localStorage.setItem("authId", data.authId)
-        localStorage.setItem("profile", data.profile)
+        localStorage.setItem("token", data)
+        localStorage.setItem("userLevle", "c")
+        setUserLevel("c")
         router.push("/home")
       })
       .catch((error) => {})
@@ -124,16 +124,17 @@ const LoginPageSignIn = () => {
                     </span>
                   </p>
                   <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                    <button
+                    <Button
                       type="submit"
-                      className={classNames(
-                        isSubmitting
-                          ? "bg-[#2e6b6f] text-white font-bold py-2 px-4 rounded opacity-50 cursor-not-allowed"
-                          : "bg-[#2e6b6f] hover:bg-[#1f2937] text-white font-bold py-2 px-4 rounded"
-                      )}
+                      disabled={isSubmitting}
+                      sx={{ mt: 2 }}
+                      color="primary"
+                      variant="contained"
+                      fullWidth
+                      className="bg-[#6667ab] w-full h-[20%] p-2"
                     >
                       Submit
-                    </button>
+                    </Button>
                   </div>
                 </div>
               </Form>

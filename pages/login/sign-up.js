@@ -1,3 +1,4 @@
+import { Button } from "@mui/material"
 import { ErrorMessage, Field, Form, Formik } from "formik"
 import { useRouter } from "next/router"
 import { useCallback, useContext } from "react"
@@ -284,15 +285,17 @@ const LoginPageSignUp = () => {
                     </span>
                   </p>
                   <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                    <button
-                      className={classNames(
-                        isSubmitting
-                          ? "bg-[#2e6b6f] text-white font-bold py-2 px-4 rounded opacity-50 cursor-not-allowed"
-                          : "bg-[#2e6b6f] hover:bg-[#1f2937] text-white font-bold py-2 px-4 rounded"
-                      )}
+                    <Button
+                      type="submit"
+                      disabled={isSubmitting}
+                      sx={{ mt: 2 }}
+                      color="primary"
+                      variant="contained"
+                      fullWidth
+                      className="bg-[#6667ab] w-full h-[20%] p-2"
                     >
                       Submit
-                    </button>
+                    </Button>
                   </div>
                 </div>
               </Form>

@@ -1,16 +1,20 @@
-import { Button } from "@mui/material"
+import { Cancel } from "@mui/icons-material"
+import { Button, IconButton } from "@mui/material"
 import { ErrorMessage, Field, Form, Formik } from "formik"
-import { useCallback, useContext } from "react"
+import { useCallback, useContext, useState } from "react"
 import * as Yup from "yup"
+import api from "../api"
 import AppContext from "../AppContext"
+import ProductImages from "../content/ProductImages"
 import InputForm from "./InputForm"
 
 const FormProduct = ({ data }) => {
   const {} = useContext(AppContext)
 
-  const classNames = (...classes) => {
-    return classes.filter(Boolean).join(" ")
-  }
+  const imageTest = []
+
+  const [ImageList, setImageList] = useState([])
+  const [imageToAdd, setImageToAdd] = useState(null)
 
   const CommentSchema = Yup.object().shape({
     name: Yup.string()
@@ -22,26 +26,54 @@ const FormProduct = ({ data }) => {
     category: Yup.string()
       .required(" Required")
       .min(1, "Please enter the Catégory of the product"),
-    images: Yup.string().required("Required"),
     price: Yup.number()
       .positive("Negative value is not allowed")
       .integer()
       .nullable(),
     rate: Yup.number()
-      .required()
+      .positive("Negative value is not allowed")
+      .max(5, "Note maximun 5 étoiles")
+      .integer()
+      .nullable(),
+    stock: Yup.number()
       .positive("Negative value is not allowed")
       .integer()
-      .max(5, "Max notation 5"),
-    stock: Yup.number()
-      .required()
-      .positive("Negative value is not allowed")
-      .integer(),
+      .nullable(),
   })
 
   const handleFormSubmit = useCallback((value, { resetForm }) => {
-    console.log("NTM", value)
-    resetForm()
+    console.log(ImageList, imageTest)
+    /*api
+      .post("/admin/products/save", {
+        ...value,
+        image1: ImageList[0],
+        image2: ImageList[1],
+        image3: ImageList[2],
+        image4: ImageList[3],
+      })
+      .then(() => {})
+      .catch((error) => {
+        console.log(error)
+      })*/
   }, [])
+
+  const setImage = (event, value) => {
+    setImageToAdd(event.target.value)
+  }
+  const addImages = () => {
+    if (ImageList.length >= 4) {
+      console.log("full")
+    } else {
+      setImageList([...ImageList, imageToAdd])
+      imageTest == ImageList
+    }
+  }
+
+  const removeImage = (id) => {
+    const list = [...ImageList]
+    list.splice(id, 1)
+    setImageList(list)
+  }
 
   return (
     <div>
@@ -52,8 +84,7 @@ const FormProduct = ({ data }) => {
             name: "",
             description: "",
             category: "",
-            images: "",
-            color: "#rrggbb",
+            color: "#000000",
             price: 0,
             rate: 0,
             stock: 0,
@@ -122,7 +153,7 @@ const FormProduct = ({ data }) => {
                       />
                     </div>
 
-                    {/*<div className="col-span-12 sm:col-span-12 lg:col-span-1">
+                    <div className="col-span-12 sm:col-span-12 lg:col-span-1">
                       <label className="block text-sm font-medium text-gray-700">
                         Couleur
                       </label>
@@ -140,7 +171,54 @@ const FormProduct = ({ data }) => {
                           <div className="text-red-500 text-sm">{msg}</div>
                         )}
                       />
-                        </div>*/}
+                    </div>
+
+                    <div className="col-span-6 sm:col-span-6 lg:col-span-6">
+                      <label className="block text-sm font-medium text-gray-700">
+                        Image
+                      </label>
+                      <div className="flex ">
+                        <input
+                          type="url"
+                          placeholder="Image"
+                          className=" flex-1 block w-full rounded-md sm:text-sm border-gray-300 p-2 my-2 text-black"
+                          onChange={setImage}
+                        />
+                        <Button
+                          variant="contained"
+                          onClick={addImages}
+                          className="bg-[#6667ab] h-[20%] ml-2 self-center"
+                        >
+                          Contained
+                        </Button>
+                      </div>
+                      <div className="flex">
+                        {ImageList.map((img, key) => (
+                          <div className="flex ml-2">
+                            <ProductImages
+                              key={key}
+                              sx={{ mb: 2 }}
+                              width={150}
+                              height={150}
+                              image={img}
+                              name={"image" + key}
+                              className="m-auto mb-2 max-h-[150px] max-w-[150px] align-baseline"
+                            />
+                            <div>
+                              <IconButton
+                                className="relative right-5 bottom-5"
+                                color="error"
+                                onClick={() => {
+                                  removeImage(key)
+                                }}
+                              >
+                                <Cancel />
+                              </IconButton>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
 
                     <div className="col-span-6 sm:col-span-6 lg:col-span-2">
                       <label className="block text-sm font-medium text-gray-700">
@@ -211,6 +289,7 @@ const FormProduct = ({ data }) => {
                     color="primary"
                     variant="contained"
                     fullWidth
+                    className="bg-[#6667ab] w-full h-[20%] p-2"
                   >
                     Submit
                   </Button>

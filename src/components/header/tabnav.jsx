@@ -24,11 +24,11 @@ import Image from "next/image"
 import AppContext from "../AppContext"
 
 const TabNav = ({ className, window }) => {
-  const { cart, notification } = useContext(AppContext)
+  const { cart, notification, userLevel } = useContext(AppContext)
   const router = useRouter()
   const [value, setValue] = useState(false)
-  const [isHovering, setIsHovered] = useState(false)
 
+  const [isHovering, setIsHovered] = useState(false)
   const [cssProperties, setCssProperties] = useState(className)
   const [cssPropertiesLogo, setCssPropertiesLogo] = useState("")
 
@@ -107,10 +107,24 @@ const TabNav = ({ className, window }) => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={() => handleMenu("/login/sign-in")}>Sign In</MenuItem>
-      <MenuItem onClick={() => handleMenu("/login/sign-in")}>Sign Up</MenuItem>
-      <MenuItem onClick={() => handleMenu("/profile")}>Profil</MenuItem>
-      <MenuItem onClick={() => handleMenu("/backoffice")}>Back-Office</MenuItem>
+      {userLevel == "nc" ? (
+        <MenuItem onClick={() => handleMenu("/login/sign-in")}>
+          Sign In
+        </MenuItem>
+      ) : null}
+      {userLevel == "nc" ? (
+        <MenuItem onClick={() => handleMenu("/login/sign-up")}>
+          Sign Up
+        </MenuItem>
+      ) : null}
+      {userLevel == "c" || userLevel == "admin" ? (
+        <MenuItem onClick={() => handleMenu("/profile")}>Profil</MenuItem>
+      ) : null}
+      {userLevel == "admin" ? (
+        <MenuItem onClick={() => handleMenu("/backoffice")}>
+          Back-Office
+        </MenuItem>
+      ) : null}
     </Menu>
   )
   const renderMenuNotification = (

@@ -4,6 +4,7 @@ const AppContext = createContext({})
 
 export const AppContextProvider = (props) => {
   const [user, setUser] = useState({ test: "test" })
+  const [userLevel, setUserLevel] = useState(null)
   const [creditCard, setCreditCard] = useState({
     numero: "123",
     expiration: "12/12/2022",
@@ -39,6 +40,21 @@ export const AppContextProvider = (props) => {
 
   const [cart, setCart] = useState([])
   const [totalCart, setTotalCart] = useState(0)
+
+  useEffect(() => {
+    const existingUserLevel = localStorage.getItem("userLevel")
+    console.log(existingUserLevel)
+    if (existingUserLevel) {
+      setUserLevel(existingUserLevel)
+    } else if (localStorage.getItem("token")) {
+      console.log(localStorage.getItem("token"))
+      localStorage.setItem("userLevel", "c")
+      setUserLevel("c")
+    } else {
+      localStorage.setItem("userLevel", "nc")
+      setUserLevel("nc")
+    }
+  }, [])
 
   useEffect(() => {
     let totalPrice = 0
@@ -136,6 +152,8 @@ export const AppContextProvider = (props) => {
         setCreditCard,
         notification,
         setNotification,
+        userLevel,
+        setUserLevel,
       }}
     />
   )

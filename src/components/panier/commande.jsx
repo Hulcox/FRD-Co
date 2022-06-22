@@ -4,7 +4,7 @@ import AppContext from "../AppContext"
 import CartItem from "../content/cartItem"
 import Swal from "sweetalert2"
 import { useRouter } from "next/router"
-import withReactContent from "sweetalert2-react-content" // SweetAlertForReact doesn't work
+// import withReactContent from "sweetalert2-react-content" // SweetAlertForReact doesn't work
 
 const Commande = ({ step, handleClick }) => {
   const { cart, totalCart, user } = useContext(AppContext)
