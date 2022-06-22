@@ -6,14 +6,15 @@ import {
   Stepper,
 } from "@mui/material"
 import { useRouter } from "next/router"
-import { useEffect, useState } from "react"
-import CartItem from "../src/components/content/cartItem"
+import { useContext, useEffect, useState } from "react"
+import AppContext from "../src/components/AppContext"
 import HeaderNav from "../src/components/header/header"
 import Commande from "../src/components/panier/commande"
 import Facturation from "../src/components/panier/facturation"
 import Paiement from "../src/components/panier/paiement"
 
 const CartPage = () => {
+  const { user } = useContext(AppContext)
   const router = useRouter()
   const [step, setStep] = useState(0)
 
@@ -29,7 +30,7 @@ const CartPage = () => {
   }
 
   useEffect(() => {
-    if (step == "3") setTimeout(redirection, 10000)
+    if (step == 3) setTimeout(redirection, 10000)
   }, [step])
 
   const redirection = () => {

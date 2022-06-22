@@ -7,7 +7,7 @@ import {
 } from "@mui/material"
 import Image from "next/image"
 import { useRouter } from "next/router"
-import { useState } from "react"
+import { useContext, useState } from "react"
 
 const CardDetail = ({
   name,
@@ -29,7 +29,11 @@ const CardDetail = ({
         pathname: "/products/" + name,
         query: { categorie: categorie, id: id },
       })
-    else router.push("/products/all/" + name)
+    else
+      rrouter.push({
+        pathname: "/products/" + name,
+        query: { categorie: "all" },
+      })
   }
 
   if (stock == 0) return null

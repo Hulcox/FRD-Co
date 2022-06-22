@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import Tabs from "@mui/material/Tabs"
 import Tab from "@mui/material/Tab"
 import {
@@ -21,8 +21,10 @@ import {
 import { useRouter } from "next/router"
 import FDR from "../../../public/images/FRD.png"
 import Image from "next/image"
+import AppContext from "../AppContext"
 
 const TabNav = ({ className, window }) => {
+  const { cart, notification } = useContext(AppContext)
   const router = useRouter()
   const [value, setValue] = useState(false)
   const [isHovering, setIsHovered] = useState(false)
@@ -43,8 +45,13 @@ const TabNav = ({ className, window }) => {
   }
 
   const [anchorEl, setAnchorEl] = useState(null)
-
+  const [anchorE2, setAnchorE2] = useState(null)
+  const isMenuNotificationOpen = Boolean(anchorE2)
   const isMenuOpen = Boolean(anchorEl)
+
+  const handleNotificationMenuOpen = (event) => {
+    setAnchorE2(event.currentTarget)
+  }
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget)
@@ -56,6 +63,9 @@ const TabNav = ({ className, window }) => {
 
   const handleMenuClose = () => {
     setAnchorEl(null)
+  }
+  const handleMenuNotificationClose = () => {
+    setAnchorE2(null)
   }
 
   useEffect(() => {
@@ -81,7 +91,6 @@ const TabNav = ({ className, window }) => {
     }
   }, [trigger, isHovering])
 
-  const menuId = "primary-search-account-menu"
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
@@ -89,7 +98,7 @@ const TabNav = ({ className, window }) => {
         vertical: "bottom",
         horizontal: "right",
       }}
-      id={menuId}
+      id={"Menu Profile"}
       keepMounted
       transformOrigin={{
         vertical: "top",
@@ -102,6 +111,27 @@ const TabNav = ({ className, window }) => {
       <MenuItem onClick={() => handleMenu("/login/sign-in")}>Sign Up</MenuItem>
       <MenuItem onClick={() => handleMenu("/profile")}>Profil</MenuItem>
       <MenuItem onClick={() => handleMenu("/backoffice")}>Back-Office</MenuItem>
+    </Menu>
+  )
+  const renderMenuNotification = (
+    <Menu
+      anchorEl={anchorE2}
+      anchorOrigin={{
+        vertical: "bottom",
+        horizontal: "right",
+      }}
+      id={"Menu Notification"}
+      keepMounted
+      transformOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      open={isMenuNotificationOpen}
+      onClose={handleMenuNotificationClose}
+    >
+      {notification.map((item) => (
+        <MenuItem>{item}</MenuItem>
+      ))}
     </Menu>
   )
 
@@ -161,31 +191,35 @@ const TabNav = ({ className, window }) => {
               <Box sx={{ mt: 1 }} className="bg-[#9695dd] rounded-md mx-4 px-4">
                 <IconButton
                   size="medium"
-                  aria-label="show 4 new mails"
+                  aria-label="Cart button"
                   color="inherit"
                   onClick={() => router.push("/panier")}
                 >
-                  <Badge badgeContent={4} color="error">
+                  <Badge badgeContent={cart.length} color="error">
                     <ShoppingCart />
                   </Badge>
                 </IconButton>
                 <IconButton
                   size="medium"
-                  aria-label="show 17 new notifications"
+                  edge="end"
+                  aria-controls={"Menu notification"}
+                  aria-haspopup="true"
+                  onClick={handleNotificationMenuOpen}
                   color="inherit"
+                  sx={{ ml: 1 }}
                 >
-                  <Badge badgeContent={17} color="error">
+                  <Badge badgeContent={notification.length} color="error">
                     <Notifications />
                   </Badge>
                 </IconButton>
                 <IconButton
                   size="medium"
                   edge="end"
-                  aria-label="account of current user"
-                  aria-controls={menuId}
+                  aria-controls={"Menu profile"}
                   aria-haspopup="true"
                   onClick={handleProfileMenuOpen}
                   color="inherit"
+                  sx={{ ml: 2 }}
                 >
                   <AccountCircle />
                 </IconButton>
@@ -206,6 +240,7 @@ const TabNav = ({ className, window }) => {
         </Toolbar>
       </Box>
       {renderMenu}
+      {renderMenuNotification}
     </>
   )
 }

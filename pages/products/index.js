@@ -18,22 +18,8 @@ const ProductPage = () => {
     noteFilter,
     priceFilter,
     categorieDetail,
-    setCategorieDetail,
   } = useContext(AppContext)
-  const router = useRouter()
   const [loading, setLoading] = useState(false)
-  const [url, setUrl] = useState(["products"])
-
-  useEffect(() => {
-    console.log(router)
-    if (router.query.categorie) {
-      setUrl(["products", router.query.categorie])
-      setCategorieDetail(router.query.categorie)
-    } else {
-      setUrl(["products"])
-      setCategorieDetail("all")
-    }
-  }, [router])
 
   useEffect(() => {
     if (!loading)
@@ -75,7 +61,7 @@ const ProductPage = () => {
         <div className=" mt-[12vh] ">
           <SearchBar />
           <div className="w-full p-4">
-            <FilAriane url={url} />
+            <FilAriane />
           </div>
         </div>
         <div className=" bg-slate-200 w-[96vw] rounded-lg">

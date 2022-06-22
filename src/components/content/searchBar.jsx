@@ -1,9 +1,9 @@
-import styled from "@emotion/styled"
 import { Done, KeyboardArrowDown, Search } from "@mui/icons-material"
 import {
   Autocomplete,
   Button,
   FormControl,
+  IconButton,
   Input,
   InputLabel,
   Menu,
@@ -12,7 +12,7 @@ import {
   TextField,
 } from "@mui/material"
 import { useRouter } from "next/router"
-import { useContext, useEffect, useState } from "react"
+import { useContext, useState } from "react"
 import AppContext from "../AppContext"
 
 const optionsMenu = [
@@ -52,9 +52,18 @@ const SearchBar = () => {
 
   const handleChange = (event) => {
     setCategorieDetail(event.target.value)
-    if (event.target.value == "All") router.push("/products")
+    if (event.target.value == "all") router.push("/products")
     else router.push("/products?categorie=" + event.target.value)
   }
+
+  const searchProduct = (event, newValue) => {
+    console.log(newValue.name, newValue.category, newValue.id)
+    router.push({
+      pathname: "/products/" + newValue.name,
+      query: { categorie: newValue.category, id: newValue.id },
+    })
+  }
+
   return (
     <>
       <div className="text-center bg-white p-2 shadow-2xl w-full mx-auto flex justify-start rounded-lg">
@@ -76,6 +85,9 @@ const SearchBar = () => {
         </div>
         <div className="mx-auto self-center">
           <Autocomplete
+            onChange={(event, newValue) => {
+              searchProduct(event, newValue)
+            }}
             disablePortal
             options={product}
             getOptionLabel={(option) => option.name}
@@ -83,7 +95,9 @@ const SearchBar = () => {
             renderInput={(params) => (
               <div className="flex items-center">
                 <TextField {...params} variant="standard" />
-                <Search sx={{ ml: 2 }} />
+                <IconButton>
+                  <Search sx={{ ml: 2 }} />
+                </IconButton>
               </div>
             )}
           />

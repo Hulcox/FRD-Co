@@ -8,17 +8,34 @@ import {
   Input,
   Radio,
 } from "@mui/material"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import CartItem from "../content/cartItem"
 import logoCb from "../../../public/images/logo_cb.jpg"
 import logoVisa from "../../../public/images/logo_visa.png"
 import Image from "next/image"
+import AppContext from "../AppContext"
+import Swal from "sweetalert2"
 
 const Paiement = ({ step, handleClick }) => {
+  const { cart, totalCart, creditCard } = useContext(AppContext)
   const [selectedValue, setSelectedValue] = useState("a")
 
   const handleChange = (event) => {
     setSelectedValue(event.target.value)
+  }
+
+  const verification = () => {
+    console.log(creditCard)
+    if (creditCard) {
+      handleClick(2)
+    } else
+      Swal.fire({
+        icon: "error",
+        title: "Attention",
+        text: "Pas de carte de moyen de payement selectionner",
+        showCancelButton: true,
+        cancelButtonText: "Annuler",
+      })
   }
 
   return (
@@ -28,7 +45,7 @@ const Paiement = ({ step, handleClick }) => {
           variant="contained"
           startIcon={<ArrowBack />}
           onClick={() => handleClick(0)}
-          className="mb-4"
+          className="mb-4 bg-[#6667ab]"
         >
           Retour vers le Panier
         </Button>
@@ -43,7 +60,7 @@ const Paiement = ({ step, handleClick }) => {
                 name="radio-buttons"
                 inputProps={{ "aria-label": "A" }}
               />
-              <h1 className="text-lg ml-4 ">Nouvelle bancaire enregistrée</h1>
+              <h1 className="text-lg ml-4 ">Carte bancaire enregistrée</h1>
             </div>
             <Image src={logoVisa} alt="fond" width={120} height={30} />
           </div>
@@ -58,7 +75,7 @@ const Paiement = ({ step, handleClick }) => {
                   name="radio-buttons"
                   inputProps={{ "aria-label": "B" }}
                 />
-                <h1 className="text-lg ml-4 ">Nouvelle bancaire enregistrée</h1>
+                <h1 className="text-lg ml-4 ">Nouvelle carte bancaire</h1>
               </div>
               <Image src={logoCb} alt="fond" width={300} height={60} />
             </div>
@@ -99,10 +116,13 @@ const Paiement = ({ step, handleClick }) => {
               />
               <h1 className="text-lg ml-4 ">Autre moyen de paiement</h1>
             </div>
-            <button className="bg-[#119DA4] text-gray-700 w-1/4 h-[10%] p-2 mt-2 rounded-md hover:bg-[#129299] hover:text-white transition-all duration-300">
-              {" "}
-              Paiement via Paypal{" "}
-            </button>
+            <Button
+              variant="contained"
+              className="mb-4 bg-[#6667ab]"
+              disabled={selectedValue !== "c"}
+            >
+              Paiement via Paypal
+            </Button>
             <p className="mt-4">
               Avec Paypal reférence en matière de paiement sécurisé sur
               internet, payer sans communiquer vos données bancaire
@@ -122,16 +142,23 @@ const Paiement = ({ step, handleClick }) => {
       <div className="flex flex-col justify-between basis-[30%]">
         <div className="basis-[30%]">
           <h5 className="text-xl font-bold pb-8">Mon Panier</h5>
-          <CartItem name={"moldativia"} price={79} quantity={1} />
-          <CartItem name={"Tulepor"} price={99} quantity={1} />
-          <CartItem name={"Cadiac"} price={129} quantity={1} />
-          <CartItem name={"Felix"} price={30} quantity={1} />
+          {cart.map(({ quantityOnCart, price, name, id, image1 }, key) => (
+            <CartItem
+              key={key}
+              img={image1}
+              id={id}
+              name={name}
+              price={price}
+              quantity={quantityOnCart}
+            />
+          ))}
+          {cart.length == 0 ? <p>Votre panier est vide</p> : null}
         </div>
         <div className="basis-[30%] my-2">
           <Divider sx={{ my: 2 }} />
           <div className="flex justify-between">
             <h5 className="text-xl font-bold pb-4">Sous total</h5>
-            <h5 className="text-xl pb-4">{"€€"}</h5>
+            <h5 className="text-xl pb-4">{totalCart + " €"}</h5>
           </div>
           <div className="flex justify-between">
             <h5 className="text-xl font-bold pb-4">Taxes</h5>
@@ -144,14 +171,16 @@ const Paiement = ({ step, handleClick }) => {
           <Divider />
           <div className="flex justify-between pt-2">
             <h5 className="text-xl font-bold pb-4">Total</h5>
-            <h5 className="text-xl pb-4">{"€€"}</h5>
+            <h5 className="text-xl pb-4">{totalCart + " €"}</h5>
           </div>
-          <button
-            className="bg-[#119DA4] text-gray-700 w-full h-[15%] p-2 mt-8 rounded-md hover:bg-[#129299] hover:text-white transition-all duration-300"
-            onClick={() => handleClick(2)}
+          <Button
+            onClick={verification}
+            className="bg-[#6667ab] w-full h-[20%] p-2 mt-8 rounded-md"
+            color="primary"
+            variant="contained"
           >
             Completez la commande
-          </button>
+          </Button>
         </div>
       </div>
     </div>

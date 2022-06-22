@@ -1,15 +1,46 @@
 import { ArrowBack } from "@mui/icons-material"
 import { Button, Divider } from "@mui/material"
-import { useEffect } from "react"
+import { useContext, useEffect } from "react"
+import Swal from "sweetalert2"
+import api from "../api"
+import AppContext from "../AppContext"
 
 const Facturation = ({ step, handleClick }) => {
+  const { cart, totalCart, user, setNotification, notification } =
+    useContext(AppContext)
+
+  const createOrders = () => {
+    console.log("test")
+    api
+      .post("/admin/orders/save", {
+        orderNumber: 1,
+        status: "complete",
+        orderDate: "12/12/2022",
+        user: user,
+        total: totalCart,
+        cart: cart,
+        deliveryAddress: "rue de test",
+      })
+      .then(() => {
+        handleClick(3)
+      })
+      .catch(() => {
+        setNotification([...notification, "La commande a échoué !"])
+        Swal.fire({
+          icon: "error",
+          title: "Attention",
+          text: "La commande a échouer",
+        })
+      })
+  }
+
   return (
     <div>
       <Button
         variant="contained"
         startIcon={<ArrowBack />}
         onClick={() => handleClick(1)}
-        className="my-4"
+        className="my-4 bg-[#6667ab]"
       >
         Retour vers le paiement
       </Button>
@@ -45,7 +76,7 @@ const Facturation = ({ step, handleClick }) => {
           <Divider sx={{ my: 2 }} />
           <div className="flex justify-between">
             <h5 className="text-xl font-bold pb-4">Sous total</h5>
-            <h5 className="text-xl pb-4">{"€€"}</h5>
+            <h5 className="text-xl pb-4">{totalCart + " €"}</h5>
           </div>
           <div className="flex justify-between">
             <h5 className="text-xl font-bold pb-4">Taxes</h5>
@@ -58,14 +89,16 @@ const Facturation = ({ step, handleClick }) => {
           <Divider />
           <div className="flex justify-between pt-2">
             <h5 className="text-xl font-bold pb-4">Total</h5>
-            <h5 className="text-xl pb-4">{"€€"}</h5>
+            <h5 className="text-xl pb-4">{totalCart + " €"}</h5>
           </div>
-          <button
-            className="bg-[#119DA4] text-gray-700 w-full h-[10%] p-2 mt-8 rounded-md hover:bg-[#129299] hover:text-white transition-all duration-300"
-            onClick={() => handleClick(3)}
+          <Button
+            onClick={createOrders}
+            className="bg-[#6667ab] w-full h-[10%] p-2 mt-8 rounded-md "
+            color="primary"
+            variant="contained"
           >
             Commander et Payer
-          </button>
+          </Button>
         </div>
       </div>
     </div>
