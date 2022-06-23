@@ -1,8 +1,10 @@
 import { Done, KeyboardArrowDown } from "@mui/icons-material"
 import { Button, Menu, MenuItem } from "@mui/material"
-import { useState } from "react"
+import { useContext, useState } from "react"
+import AppContext from "../../src/components/AppContext"
 
 const FilterByTri = () => {
+  const { filtreTri, setFiltreTri } = useContext(AppContext)
   const optionsMenu = [
     "Dernière nouveautés",
     " Prix croissant",
@@ -18,6 +20,7 @@ const FilterByTri = () => {
   }
   const handleMenuItemClick = (event, index) => {
     setSelectedMenuIndex(index)
+    setFiltreTri(optionsMenu[index])
     setMenu(null)
   }
   const handleClose = () => {

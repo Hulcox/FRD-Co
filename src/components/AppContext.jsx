@@ -5,21 +5,23 @@ const AppContext = createContext({})
 export const AppContextProvider = (props) => {
   const { pageComponent: Page, router, ...otherProps } = props
 
-  const [user, setUser] = useState({})
-  const [userId, setUserId] = useState(null)
-  const [userLevel, setUserLevel] = useState(null)
+  const [user, setUser] = useState({}) //user is required
+  const [userId, setUserId] = useState(null) //userId is required
+  const [userLevel, setUserLevel] = useState(null) //userLevel is required
   const [creditCard, setCreditCard] = useState({
+    //creditCard is ntt required but backEnd doesn't work (route creditcard)
     numero: "123",
     expiration: "12/12/2022",
     crypto: "742",
   })
-  const [notification, setNotification] = useState([])
-  const [categorie, setCategorie] = useState([])
-  const [product, setProduct] = useState([])
-  const [productTop4, setProductTop4] = useState([])
-  const [categorieDetail, setCategorieDetail] = useState(null)
-  const [productDetail, handleSetProductDetail] = useState("Tulepor")
+  const [notification, setNotification] = useState([]) //notification is required
+  const [categorie, setCategorie] = useState([]) //categorie is required
+  const [product, setProduct] = useState([]) //product not is required
+  const [productTop4, setProductTop4] = useState([]) //productTop4 is required
+  const [categorieDetail, setCategorieDetail] = useState(null) //categorieDetail is required
+  const [productDetail, handleSetProductDetail] = useState("Tulepor") //productDetail is required
   const [colorList, setColorList] = useState([
+    //colorList is not required
     "red",
     "blue",
     "black",
@@ -28,18 +30,21 @@ export const AppContextProvider = (props) => {
     "grey",
     "pink",
   ])
-  const [colorFilter, setColorFilter] = useState(null)
-  const [noteFilter, setNoteFilter] = useState(null)
-  const [priceFilter, setPriceFilter] = useState([0, 1000])
-  const [orders, setOrders] = useState([])
-  const [livraisonAdress, setLivraisonAdress] = useState(null)
-  const [users, setUsers] = useState([])
+  const [colorFilter, setColorFilter] = useState(null) //colorFilter is required
+  const [noteFilter, setNoteFilter] = useState(null) //noteFilter is required
+  const [priceFilter, setPriceFilter] = useState([0, 1000]) //priceFilter is required
+  const [orders, setOrders] = useState([]) //orders is not required
+  const [livraisonAdress, setLivraisonAdress] = useState(null) //livraisonAdress not is required
+  const [users, setUsers] = useState([]) //users is not required
+  const [filtreTri, setFiltreTri] = useState("") //filtreTri is required
 
   const handleSetUser = useCallback((value) => {
+    //useCallback for function use often
     setUser(value)
   }, [])
 
   const setProductDetail = useCallback((value) => {
+    //useCallback for function use often
     handleSetProductDetail(value)
   }, [])
 
@@ -47,18 +52,22 @@ export const AppContextProvider = (props) => {
   const [totalCart, setTotalCart] = useState(0)
 
   useEffect(() => {
-    if ((userLevel == "ROLE_USER") === null && Page.private) {
+    //rediraction if your are note authorize to enter in profile menu
+    if (userLevel != "ROLE_USER" && Page.private) {
       router.push("/login/sign-in")
     }
-  }, [Page.private, router, user])
+  }, [Page.private, router, userLevel])
 
   useEffect(() => {
-    if (userLevel == "ROLE_ADMIN" && Page.administration) {
+    //rediraction if your are note authorize to enter in backoffice
+    console.log(userLevel == "ROLE_ADMIN")
+    if (userLevel != "ROLE_ADMIN" && Page.administration) {
       router.push("/")
     }
-  }, [Page.administration, router, session])
+  }, [Page.administration, router, userLevel])
 
   useEffect(() => {
+    //set total cart price
     let totalPrice = 0
     cart.map(
       ({ price, quantityOnCart }) => (totalPrice += price * quantityOnCart)
@@ -67,6 +76,7 @@ export const AppContextProvider = (props) => {
   }, [cart])
 
   useEffect(() => {
+    // load cart
     const localCart = localStorage.getItem("cart")
     localCart = JSON.parse(localCart)
     if (localCart) {
@@ -76,6 +86,7 @@ export const AppContextProvider = (props) => {
   }, [])
 
   const addCartItem = (item) => {
+    // add item into cart
     const cartCopy = [...cart]
 
     const { id } = item
@@ -93,6 +104,7 @@ export const AppContextProvider = (props) => {
   }
 
   const editCartItem = (id, amount) => {
+    // edit item into cart
     const cartCopy = [...cart]
 
     const existingItem = cartCopy.find((item) => item.id == id)
@@ -108,6 +120,7 @@ export const AppContextProvider = (props) => {
   }
 
   const removeCartItem = (id) => {
+    // remove item into cart
     const cartCopy = [...cart]
 
     cartCopy = cartCopy.filter((item) => item.id != id)
@@ -160,6 +173,8 @@ export const AppContextProvider = (props) => {
         setUserId,
         setLivraisonAdress,
         livraisonAdress,
+        setFiltreTri,
+        filtreTri,
       }}
     />
   )

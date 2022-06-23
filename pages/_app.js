@@ -16,9 +16,9 @@ const theme = createTheme({
   },
 })
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps, ...otherProps }) {
   return (
-    <AppContextProvider>
+    <AppContextProvider pageComponent={Component} router={otherProps.router}>
       <ThemeProvider theme={theme}>
         <Component {...pageProps} />
       </ThemeProvider>

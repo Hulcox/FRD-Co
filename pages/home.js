@@ -13,7 +13,7 @@ import { useContext, useEffect } from "react"
 import api from "../src/components/api"
 import AppContext from "../src/components/AppContext"
 
-export default function Home() {
+const Home = () => {
   const { productTop4, setProductTop4 } = useContext(AppContext)
 
   var settings = {
@@ -67,3 +67,5 @@ export default function Home() {
     </div>
   )
 }
+Home.private = false
+export default Home

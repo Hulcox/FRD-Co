@@ -20,6 +20,7 @@ const ProductPage = () => {
     categorieDetail,
     categorie,
     setCategorie,
+    filtreTri,
   } = useContext(AppContext)
   const [loading, setLoading] = useState(false)
 
@@ -53,6 +54,7 @@ const ProductPage = () => {
           rate: noteFilter,
           color: colorFilter,
           category: categorieDetail,
+          filtreTri: filtreTri,
         })
         .then((res) => {
           setProduct(res.data)
