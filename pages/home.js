@@ -9,12 +9,14 @@ import Canape from "../public/images/canape.jpg"
 import CardCateorie from "../src/components/content/cardCategorie"
 import SliderProduct from "../src/components/content/sliderProduct"
 import FooterPage from "../src/components/footer/footer"
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useState } from "react"
 import api from "../src/components/api"
 import AppContext from "../src/components/AppContext"
 
 const Home = () => {
   const { productTop4, setProductTop4 } = useContext(AppContext)
+  const [productCategorie1, setProductCategorie1] = useState([])
+  const [productCategorie2, setProductCategorie2] = useState([])
 
   var settings = {
     dots: true,
@@ -24,13 +26,23 @@ const Home = () => {
     slidesToScroll: 5,
   }
 
-  const row = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-
   useEffect(() => {
     api
       .get("/products/top4")
       .then((res) => {
         setProductTop4(res.data)
+      })
+      .catch((error) => {})
+    api
+      .get("/products/category/canape")
+      .then((res) => {
+        setProductCategorie1(res.data)
+      })
+      .catch((error) => {})
+    api
+      .get("/products/category/table")
+      .then((res) => {
+        setProductCategorie2(res.data)
       })
       .catch((error) => {})
   }, [])
@@ -56,11 +68,15 @@ const Home = () => {
           descriptionDroite={"Canapé"}
           descriptionGauche={"Table"}
         />
-        <SliderProduct settings={settings} row={row} nameCategory={"Salon"} />
         <SliderProduct
           settings={settings}
-          row={row}
-          nameCategory={"Salle à manger"}
+          row={productCategorie1}
+          nameCategory={"Canapé"}
+        />
+        <SliderProduct
+          settings={settings}
+          row={productCategorie2}
+          nameCategory={"Table"}
         />
       </div>
       <FooterPage />

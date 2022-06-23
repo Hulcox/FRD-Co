@@ -36,7 +36,7 @@ const BackOfficeUsers = () => {
       .catch((error) => {
         console.error(error)
       })
-  }, [deleteUser])
+  }, [])
 
   const deleteUser = (id) => {
     api.delete("/users/" + id).catch((error) => {

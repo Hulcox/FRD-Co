@@ -11,14 +11,16 @@ const SliderProduct = ({ row, settings, nameCategory }) => {
       <Slider {...settings}>
         {row.map((elm, key) => (
           <CardDetail
-            name={"Tulepor"}
-            description={"Canapé en cuir"}
-            id={elm}
+            name={elm.name}
+            description={elm.description}
+            id={elm.id}
+            rating={elm.rate}
+            image1={elm.image1}
+            price={elm.price}
+            categorie={elm.category}
+            stock={elm.stock}
+            color={elm.color}
             key={key}
-            rating={elm}
-            image={elm % 2 ? Canape : false}
-            price={99}
-            categorie={"Canape"}
           />
         ))}
       </Slider>

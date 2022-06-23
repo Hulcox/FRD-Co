@@ -33,7 +33,7 @@ const BackOfficeCategorie = () => {
       .catch((error) => {
         console.error(error)
       })
-  }, [deleteCategorie])
+  }, [])
 
   const deleteCategorie = (id) => {
     api.delete("/categorie/" + id).catch((error) => {

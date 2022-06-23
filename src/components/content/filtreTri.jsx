@@ -1,7 +1,7 @@
 import { Done, KeyboardArrowDown } from "@mui/icons-material"
 import { Button, Menu, MenuItem } from "@mui/material"
 import { useContext, useState } from "react"
-import AppContext from "../../src/components/AppContext"
+import AppContext from "../AppContext"
 
 const FilterByTri = () => {
   const { filtreTri, setFiltreTri } = useContext(AppContext)

@@ -37,6 +37,11 @@ const ProductDetail = () => {
           console.error(error)
         })
   }, [id])
+
+  useEffect(async () => {
+    await api.post("/products/user/rate" + id)
+  }, [value])
+
   if (!loading) return <div></div>
   else
     return (

@@ -30,7 +30,7 @@ const CardDetail = ({
         query: { categorie: categorie, id: id },
       })
     else
-      rrouter.push({
+      router.push({
         pathname: "/products/" + name,
         query: { categorie: "all" },
       })

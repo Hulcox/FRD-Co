@@ -50,7 +50,7 @@ const ProductPage = () => {
     if (loading)
       api
         .post("/products/filter", {
-          price: null,
+          price: priceFilter,
           rate: noteFilter,
           color: colorFilter,
           category: categorieDetail,

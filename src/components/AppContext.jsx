@@ -8,12 +8,8 @@ export const AppContextProvider = (props) => {
   const [user, setUser] = useState({}) //user is required
   const [userId, setUserId] = useState(null) //userId is required
   const [userLevel, setUserLevel] = useState(null) //userLevel is required
-  const [creditCard, setCreditCard] = useState({
-    //creditCard is ntt required but backEnd doesn't work (route creditcard)
-    numero: "123",
-    expiration: "12/12/2022",
-    crypto: "742",
-  })
+  //creditCard is ntt required but backEnd doesn't work (route creditcard)
+  const [creditCard, setCreditCard] = useState([])
   const [notification, setNotification] = useState([]) //notification is required
   const [categorie, setCategorie] = useState([]) //categorie is required
   const [product, setProduct] = useState([]) //product not is required
