@@ -23,7 +23,6 @@ const BackOfficeUser = () => {
     api
       .get("/users")
       .then((res) => {
-        console.log(res)
         setUsers(res.data)
       })
       .catch((error) => {
@@ -93,4 +92,6 @@ const BackOfficeUser = () => {
     </div>
   )
 }
+BackOfficeUser.private = true
+BackOfficeUser.administration = true
 export default BackOfficeUser

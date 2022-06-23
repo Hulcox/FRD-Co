@@ -4,7 +4,12 @@ import { useCallback } from "react"
 import api from "../api"
 import InputForm from "../formikComponents/InputForm"
 
-const FormCategorie = ({ edit, categorieName, categorieId }) => {
+const FormCategorie = ({
+  edit,
+  categorieName,
+  categorieDescription,
+  categorieId,
+}) => {
   const handleFormSubmit = useCallback((value, { resetForm }) => {
     try {
       edit
@@ -13,23 +18,25 @@ const FormCategorie = ({ edit, categorieName, categorieId }) => {
               //put doesn't work because the route are not added into the api at the 26/06/2022
               id: categorieId,
               name: value.name.toLowerCase(),
+              description: value.description,
             })
             .then(() => {
               resetForm()
             })
             .catch((error) => {
-              console.log(error)
+              console.error(error)
             })
         : api
             .post("/categorie/save", {
               id: categorieId,
               name: value.name.toLowerCase(),
+              description: value.description,
             })
             .then(() => {
               resetForm()
             })
             .catch((error) => {
-              console.log(error)
+              console.error(error)
             })
     } catch (error) {
       resetForm()
@@ -40,6 +47,7 @@ const FormCategorie = ({ edit, categorieName, categorieId }) => {
     <Formik
       initialValues={{
         name: categorieName ? categorieName : "",
+        description: categorieDescription ? categorieDescription : "",
       }}
       onSubmit={handleFormSubmit}
     >
@@ -60,11 +68,18 @@ const FormCategorie = ({ edit, categorieName, categorieId }) => {
                     as={InputForm}
                     required
                   />
-                  <ErrorMessage
-                    name="name"
-                    render={(msg) => (
-                      <div className="text-red-500 text-sm">{msg}</div>
-                    )}
+                </div>
+                <div className="col-span-6 sm:col-span-3">
+                  <label className="block text-sm font-medium text-gray-700">
+                    Nom de la catégorie
+                  </label>
+                  <Field
+                    type="text"
+                    name="description"
+                    placeholder="Description de la catégorie"
+                    className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    as={InputForm}
+                    required
                   />
                 </div>
               </div>
@@ -79,7 +94,7 @@ const FormCategorie = ({ edit, categorieName, categorieId }) => {
                 fullWidth
                 className="bg-[#6667ab] w-full h-[20%] p-2"
               >
-                Submit
+                Envoyer
               </Button>
             </div>
           </div>

@@ -6,7 +6,6 @@ const FilterNotation = () => {
   const { noteFilter, setNoteFilter } = useContext(AppContext)
 
   const handleClick = (value) => {
-    console.log(value)
     if (value == noteFilter) {
       setNoteFilter(null)
     } else {

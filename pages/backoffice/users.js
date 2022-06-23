@@ -22,7 +22,6 @@ const BackOfficeUsers = () => {
   const [idSelected, setIdSelected] = useState(false)
 
   const handleChange = (id) => {
-    console.log(id)
     if (id == idSelected) {
       setIdSelected(false)
     } else setIdSelected(id)
@@ -32,17 +31,17 @@ const BackOfficeUsers = () => {
     api
       .get("/users")
       .then((res) => {
-        console.log(res)
         setUsers(res.data)
       })
       .catch((error) => {
         console.error(error)
       })
-  }, [])
+  }, [deleteUser])
 
-  const deleteProduct = (id) => {
-    console.log(id)
-    //api.delete('/product/id')
+  const deleteUser = (id) => {
+    api.delete("/users/" + id).catch((error) => {
+      console.error(error)
+    })
   }
 
   return (
@@ -167,5 +166,6 @@ const BackOfficeUsers = () => {
     </div>
   )
 }
-
+BackOfficeUsers.private = true
+BackOfficeUsers.administration = true
 export default BackOfficeUsers

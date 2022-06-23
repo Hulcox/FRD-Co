@@ -20,8 +20,9 @@ const CartPage = () => {
 
   const steps = [
     "Verification Commande",
-    "Paiement",
+
     "Addresse de livraison et de facturation",
+    "Paiement",
     "Finalisation",
   ]
 
@@ -52,9 +53,9 @@ const CartPage = () => {
         {step == 0 ? (
           <Commande handleClick={handleClick} />
         ) : step == 1 ? (
-          <Paiement handleClick={handleClick} />
-        ) : step == 2 ? (
           <Facturation handleClick={handleClick} />
+        ) : step == 2 ? (
+          <Paiement handleClick={handleClick} />
         ) : (
           <>
             <div className="flex justify-center w-full h-1/2 mx-auto mt-10">

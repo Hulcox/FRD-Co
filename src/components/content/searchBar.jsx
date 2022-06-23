@@ -25,7 +25,6 @@ const SearchBar = () => {
   }
 
   const searchProduct = (event, newValue) => {
-    console.log(newValue.name, newValue.category, newValue.id)
     router.push({
       pathname: "/products/" + newValue.name,
       query: { categorie: newValue.category, id: newValue.id },

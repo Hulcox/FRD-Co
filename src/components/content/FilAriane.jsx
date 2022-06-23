@@ -12,7 +12,6 @@ const FilAriane = () => {
   const { productName, categorie } = router.query
 
   useEffect(() => {
-    console.log(router)
     if (categorie && productName) {
       setUrl(["products", categorie, productName])
       setCategorieDetail(categorie)

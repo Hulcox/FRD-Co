@@ -30,12 +30,12 @@ const FormSignUp = ({ userDetails }) => {
   const handleFormSubmit = useCallback((value, { resetForm }) => {
     try {
       api
-        .post("/users/signUp", { ...value })
+        .post("/api/auth/sign-up", value)
         .then(() => {
           resetForm()
         })
         .catch((error) => {
-          console.log(error)
+          console.error(error)
         })
     } catch (error) {
       resetForm()
@@ -56,7 +56,7 @@ const FormSignUp = ({ userDetails }) => {
             zipCode: userDetails ? userDetails.zipCode : null,
             city: userDetails ? userDetails.city : "",
             civility: userDetails ? userDetails.civility : "",
-            role: userDetails ? userDetails.role : "User",
+            role: userDetails ? userDetails.role : "user",
           }}
           onSubmit={handleFormSubmit}
         >
@@ -222,7 +222,7 @@ const FormSignUp = ({ userDetails }) => {
                     fullWidth
                     className="bg-[#6667ab] w-full h-[20%] p-2"
                   >
-                    Submit
+                    Envoyer
                   </Button>
                 </div>
               </div>

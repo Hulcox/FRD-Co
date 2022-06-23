@@ -26,7 +26,6 @@ const BackOfficeProducts = () => {
   const [openModify, setOpenModify] = useState(false)
 
   const handleChange = (id) => {
-    console.log(id, idSelected)
     if (id == idSelected) {
       setIdSelected(null)
     } else setIdSelected(id)
@@ -36,21 +35,20 @@ const BackOfficeProducts = () => {
     api
       .get("/products")
       .then((res) => {
-        console.log(res)
         setProduct(res.data)
       })
       .catch((error) => {
         console.error(error)
       })
-  }, [])
+  }, [deleteProduct])
 
   const deleteProduct = (id) => {
-    console.log(id)
-    //api.delete('/product/id')
+    api.delete("/products/" + id).catch((error) => {
+      console.error(error)
+    })
   }
 
   const handleClickModify = (id) => {
-    console.log(openModify, id)
     handleChange(id)
     setOpenModify(!openModify)
   }
@@ -118,11 +116,7 @@ const BackOfficeProducts = () => {
                         </Tooltip>
                       </TableCell>
                     </TableRow>
-                    <TableRow
-                      component="div"
-                      disablePadding
-                      sx={{ ml: 8, width: "auto" }}
-                    >
+                    <TableRow component="div" sx={{ ml: 8, width: "auto" }}>
                       <TableCell
                         style={{ paddingBottom: 0, paddingTop: 0 }}
                         colSpan={6}
@@ -169,11 +163,7 @@ const BackOfficeProducts = () => {
                         </Collapse>
                       </TableCell>
                     </TableRow>
-                    <TableRow
-                      component="div"
-                      disablePadding
-                      sx={{ ml: 8, width: "auto" }}
-                    >
+                    <TableRow component="div" sx={{ ml: 8, width: "auto" }}>
                       <TableCell
                         style={{ paddingBottom: 0, paddingTop: 0 }}
                         colSpan={6}
@@ -199,5 +189,6 @@ const BackOfficeProducts = () => {
     </div>
   )
 }
-
+BackOfficeProducts.private = true
+BackOfficeProducts.administration = true
 export default BackOfficeProducts

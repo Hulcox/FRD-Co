@@ -1,20 +1,28 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
+import AppContext from "../../src/components/AppContext"
 import FormSecurity from "../../src/components/formikComponents/FormSecurity"
 import HeaderNav from "../../src/components/header/header"
+import DrawerProduct from "../../src/components/profile/DrawerProfile"
 import ProfileMenu from "../../src/components/profileMenu"
 
-const ProfileSecurityPage = ({ data }) => {
+const ProfileSecurityPage = () => {
+  const { handleSetUser, user } = useContext(AppContext)
   return (
-    <div>
+    <div className="z-0">
       <HeaderNav />
-      <div className="mx-auto w-1/2 mt-20 shadow-gray-100 shadow-md p-4 flex justify-between bg-slate-200 items-center rounded">
-        <h1 className="text-xl font-bold">{"My Profile"}</h1>
+      <div className="bg-[#c2c6c8] p-[1vw] rounded-lg">
+        <DrawerProduct />
+        <div className=" flex justify-end">
+          <div className="w-[86.5%] mt-[12vh]">
+            <h2 className="text-black text-xl font-bold my-5">
+              Securité: Changer mon mot de passe
+            </h2>
+            <FormSecurity userId={user.di} />
+          </div>
+        </div>
       </div>
-      <ProfileMenu>
-        <FormSecurity data={data} />
-      </ProfileMenu>
     </div>
   )
 }
-
+ProfileSecurityPage.private = true
 export default ProfileSecurityPage

@@ -22,9 +22,11 @@ import { useRouter } from "next/router"
 import FDR from "../../../public/images/FRD.png"
 import Image from "next/image"
 import AppContext from "../AppContext"
+import MenuProfile from "./menuProfile"
+import MenuNotification from "./menuNotification"
 
 const TabNav = ({ className, window }) => {
-  const { cart, notification, userLevel } = useContext(AppContext)
+  const { cart } = useContext(AppContext)
   const router = useRouter()
   const [value, setValue] = useState(false)
 
@@ -42,26 +44,6 @@ const TabNav = ({ className, window }) => {
   const handleChange = (event, newValue) => {
     setValue(newValue)
     router.push("/" + newValue)
-  }
-
-  const [anchorEl, setAnchorEl] = useState(null)
-  const [anchorE2, setAnchorE2] = useState(null)
-  const isMenuNotificationOpen = Boolean(anchorE2)
-  const isMenuOpen = Boolean(anchorEl)
-  const handleNotificationMenuOpen = (event) => {
-    setAnchorE2(event.currentTarget)
-  }
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget)
-  }
-  const handleMenu = (value) => {
-    router.push(value)
-  }
-  const handleMenuClose = () => {
-    setAnchorEl(null)
-  }
-  const handleMenuNotificationClose = () => {
-    setAnchorE2(null)
   }
 
   useEffect(() => {
@@ -86,56 +68,6 @@ const TabNav = ({ className, window }) => {
       setCssPropertiesLogo("top-[0vh] transition-all duration-300")
     }
   }, [trigger, isHovering])
-
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: "bottom",
-        horizontal: "right",
-      }}
-      id={"Menu Profile"}
-      keepMounted
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={() => handleMenu("/login/sign-in")}>Sign In</MenuItem>
-      <MenuItem onClick={() => handleMenu("/login/sign-up")}>Sign Up</MenuItem>
-      {userLevel == "user" || userLevel == "admin" ? (
-        <MenuItem onClick={() => handleMenu("/profile")}>Profil</MenuItem>
-      ) : null}
-      {userLevel == "admin" ? (
-        <MenuItem onClick={() => handleMenu("/backoffice")}>
-          Back-Office
-        </MenuItem>
-      ) : null}
-    </Menu>
-  )
-  const renderMenuNotification = (
-    <Menu
-      anchorEl={anchorE2}
-      anchorOrigin={{
-        vertical: "bottom",
-        horizontal: "right",
-      }}
-      id={"Menu Notification"}
-      keepMounted
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      open={isMenuNotificationOpen}
-      onClose={handleMenuNotificationClose}
-    >
-      {notification.map((item) => (
-        <MenuItem>{item}</MenuItem>
-      ))}
-    </Menu>
-  )
 
   return (
     <>
@@ -201,48 +133,13 @@ const TabNav = ({ className, window }) => {
                     <ShoppingCart />
                   </Badge>
                 </IconButton>
-                <IconButton
-                  size="medium"
-                  edge="end"
-                  aria-controls={"Menu notification"}
-                  aria-haspopup="true"
-                  onClick={handleNotificationMenuOpen}
-                  color="inherit"
-                  sx={{ ml: 1 }}
-                >
-                  <Badge badgeContent={notification.length} color="error">
-                    <Notifications />
-                  </Badge>
-                </IconButton>
-                <IconButton
-                  size="medium"
-                  edge="end"
-                  aria-controls={"Menu profile"}
-                  aria-haspopup="true"
-                  onClick={handleProfileMenuOpen}
-                  color="inherit"
-                  sx={{ ml: 2 }}
-                >
-                  <AccountCircle />
-                </IconButton>
+                <MenuNotification />
+                <MenuProfile />
               </Box>
             </Box>
           </Box>
-          <IconButton
-            size="medium"
-            edge="end"
-            aria-haspopup="true"
-            onClick={() => {
-              router.push("/profile/back-office")
-            }}
-            color="inherit"
-          >
-            <Login />
-          </IconButton>
         </Toolbar>
       </Box>
-      {renderMenu}
-      {renderMenuNotification}
     </>
   )
 }

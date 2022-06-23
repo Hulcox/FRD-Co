@@ -7,7 +7,6 @@ const FilterColors = ({ colors }) => {
   const { colorFilter, setColorFilter } = useContext(AppContext)
 
   const handleClick = (value) => {
-    console.log(value)
     if (value == colorFilter) {
       setColorFilter(null)
     } else {

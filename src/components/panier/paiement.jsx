@@ -15,26 +15,53 @@ import logoVisa from "../../../public/images/logo_visa.png"
 import Image from "next/image"
 import AppContext from "../AppContext"
 import Swal from "sweetalert2"
+import { Elements } from "@stripe/react-stripe-js"
+import { loadStripe } from "@stripe/stripe-js"
+import CheckoutForm from "./stripe/ChekoutForm"
+import api from "../api"
 
 const Paiement = ({ step, handleClick }) => {
-  const { cart, totalCart, creditCard } = useContext(AppContext)
+  const { cart, totalCart, creditCard, setNotification, notification, user } =
+    useContext(AppContext)
   const [selectedValue, setSelectedValue] = useState("a")
 
   const handleChange = (event) => {
     setSelectedValue(event.target.value)
   }
 
-  const verification = () => {
-    console.log(creditCard)
-    if (creditCard) {
-      handleClick(2)
-    } else
-      Swal.fire({
-        icon: "error",
-        title: "Attention",
-        text: "Pas de carte de moyen de payement selectionner",
-        showCancelButton: true,
-        cancelButtonText: "Annuler",
+  const stripePromise = loadStripe(
+    "pk_test_51LDqsgHVdvIdMhL0ZNuRA6l9DKDaOFI6tQl7H6BHCZoBWE5k9irpvyXQ0zkoHs0C9myg8oaMCfINpuzquaUT5N3e00eFofZ7Ht"
+  )
+
+  const appearance = {
+    theme: "stripe",
+  }
+  const options = {
+    clientSecret: "",
+    appearance,
+  }
+
+  const createOrders = () => {
+    api
+      .post("/admin/orders/save", {
+        orderNumber: 1,
+        status: "complete",
+        orderDate: "12/12/2022",
+        user: user,
+        total: totalCart,
+        cart: cart,
+        deliveryAddress: "rue de test",
+      })
+      .then(() => {
+        handleClick(3)
+      })
+      .catch(() => {
+        setNotification([...notification, "La commande a échoué !"])
+        Swal.fire({
+          icon: "error",
+          title: "Attention",
+          text: "La commande a échouer",
+        })
       })
   }
 
@@ -44,7 +71,7 @@ const Paiement = ({ step, handleClick }) => {
         <Button
           variant="contained"
           startIcon={<ArrowBack />}
-          onClick={() => handleClick(0)}
+          onClick={() => handleClick(1)}
           className="mb-4 bg-[#6667ab]"
         >
           Retour vers le Panier
@@ -79,22 +106,30 @@ const Paiement = ({ step, handleClick }) => {
               </div>
               <Image src={logoCb} alt="fond" width={300} height={60} />
             </div>
+
             <div className=" flex flex-wrap ml-14 mt-8">
-              <Input
-                type="text"
-                placeholder="Numéro de carte"
-                sx={{ width: "60%", mr: 20 }}
-              />
-              <Input
-                type="date"
-                placeholder="Date de Validité"
-                sx={{ width: "35%", mr: 10, mt: 4 }}
-              />
-              <Input
-                type="text"
-                placeholder="Cryptogram"
-                sx={{ width: "15%", mr: 20, mt: 4 }}
-              />
+              {/*<div>
+                <Elements stripe={stripePromise} options={options}>
+                  <CheckoutForm />
+                </Elements>
+              </div>*/}
+              <div>
+                <Input
+                  type="text"
+                  placeholder="Numéro de carte"
+                  sx={{ width: "60%", mr: 20 }}
+                />
+                <Input
+                  type="date"
+                  placeholder="Date de Validité"
+                  sx={{ width: "35%", mr: 10, mt: 4 }}
+                />
+                <Input
+                  type="text"
+                  placeholder="Cryptogram"
+                  sx={{ width: "15%", mr: 20, mt: 4 }}
+                />
+              </div>
               <FormGroup>
                 <FormControlLabel
                   control={<Checkbox />}
@@ -174,7 +209,7 @@ const Paiement = ({ step, handleClick }) => {
             <h5 className="text-xl pb-4">{totalCart + " €"}</h5>
           </div>
           <Button
-            onClick={verification}
+            onClick={createOrders}
             className="bg-[#6667ab] w-full h-[20%] p-2 mt-8 rounded-md"
             color="primary"
             variant="contained"

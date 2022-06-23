@@ -41,9 +41,6 @@ const DrawerBackOffice = () => {
     router.push("/home")
   }
 
-  useEffect(() => {
-    console.log(router)
-  }, [])
   return (
     <Drawer
       sx={{

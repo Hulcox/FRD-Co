@@ -15,32 +15,35 @@ import {
   ListItemText,
   Toolbar,
 } from "@mui/material"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useRouter } from "next/router"
 import DrawerItem from "../backOffice/DrawerItem"
+import AppContext from "../AppContext"
 
 const DrawerItemList1 = [
-  { text: "mes Commandes", icon: <Inventory />, link: "/profile/account" },
+  { text: "Mes Commandes", icon: <Inventory />, link: "/profile/myorder" },
   { text: "Mon Compte", icon: <Person />, link: "/profile/account" },
-  { text: "Sécurité", icon: <Key />, link: "/profile/account" },
+  { text: "Sécurité", icon: <Key />, link: "/profile/security" },
   {
     text: "Mes Cartes de Crédit",
     icon: <CreditCard />,
-    link: "/profile/account",
+    link: "/profile/mycreditcard",
   },
 ]
 
-const DrawerProduct = () => {
+const DrawerProfile = () => {
+  const { setUserLevel, handleSetUser } = useContext(AppContext)
   const router = useRouter()
   const [selected, setSelected] = useState(router.asPath)
 
   const handleExit = () => {
-    router.push("/logout")
+    localStorage.removeItem("token")
+    localStorage.removeItem("userLevel")
+    setUserLevel("")
+    handleSetUser({})
+    router.push("/home")
   }
 
-  useEffect(() => {
-    console.log(router, selected)
-  }, [])
   return (
     <Drawer
       sx={{
@@ -83,4 +86,4 @@ const DrawerProduct = () => {
   )
 }
 
-export default DrawerProduct
+export default DrawerProfile

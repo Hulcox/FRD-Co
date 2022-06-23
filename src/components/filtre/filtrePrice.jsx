@@ -9,15 +9,11 @@ const FilterPrice = () => {
     setPriceFilter(newValue)
   }
   const handleInputMinPrice = (event) => {
-    console.log(Number(event.target.value))
     setPriceFilter([Number(event.target.value), priceFilter[1]])
   }
   const handleInputMaxPrice = (event) => {
-    console.log(Number(event.target.value))
     setPriceFilter([priceFilter[0], Number(event.target.value)])
   }
-
-  console.log(priceFilter)
 
   return (
     <div className="m-2 my-5">

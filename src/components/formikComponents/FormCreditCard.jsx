@@ -3,41 +3,24 @@ import { ErrorMessage, Field, Form, Formik } from "formik"
 import { useRouter } from "next/router"
 import { useCallback, useContext } from "react"
 import * as Yup from "yup"
-import api from "../api"
 import AppContext from "../AppContext"
 import InputForm from "./InputForm"
 
-const FormSecurity = ({ userId }) => {
+const FormCreditCard = () => {
   const CommentSchema = Yup.object().shape({
-    prevpassword: Yup.string()
-      .required("S'il vous plait entrez votre précedent mot de passe")
-      .matches(
-        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/gm,
-        "Mot de passe doit contenir minimun 8 characteres, 1 majuscule et un charactere spéciale"
-      ),
-    password: Yup.string()
-      .required("S'il vous plait entrez votre mot de passe")
-      .matches(
-        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/gm,
-        "Mot de passe doit contenir minimun 8 characteres, 1 majuscule et un charactere spéciale"
-      ),
-    confirm_password: Yup.string()
-      .required("S'il vous plait entrez votre confirmation mot de passe")
-      .oneOf([Yup.ref("password"), null], "Le mot de passe ne correspond pas"),
+    nbCreditCard: Yup.string()
+      .max(16, "Numéro de carte ne peux pas dépasser 16 chiffre")
+      .required("Numéro de carte requis"),
+    expirationDate: Yup.date().required("Date de Validité requis"),
+    cryptogram: Yup.string()
+      .min(3, "Minimun 3 chiffre")
+      .max(4, "Maximun 4 chiffre")
+      .required("Cryptogram / CVC requis"),
   })
 
   const handleFormSubmit = useCallback((value, { resetForm }) => {
     try {
       // route to change password doesn't existe
-      api
-        .post("/user/" + userId + "/password/save", value)
-        .then(() => {
-          resetForm()
-        })
-        .catch((error) => {
-          console.error(error)
-          resetForm()
-        })
     } catch (error) {
       resetForm()
     }
@@ -49,9 +32,9 @@ const FormSecurity = ({ userId }) => {
         <Formik
           validationSchema={CommentSchema}
           initialValues={{
-            prevpassword: "",
-            password: "",
-            confirm_password: "",
+            nbCreditCard: "",
+            expirationDate: "",
+            cryptogram: "",
           }}
           onSubmit={handleFormSubmit}
         >
@@ -60,34 +43,33 @@ const FormSecurity = ({ userId }) => {
               <div className="shadow overflow-hidden sm:rounded-md">
                 <div className="px-4 py-5 bg-white sm:p-6">
                   <div className="grid grid-cols-6 gap-6">
-                    <div className="col-span-6 sm:col-span-4">
+                    <div className="col-span-6 sm:col-span-5">
                       <label className="block text-sm font-medium text-gray-700">
-                        Précedent Mot de Passe
+                        Numéro de carte
                       </label>
                       <Field
-                        type="password"
-                        name="prevpassword"
-                        placeholder="Précedent Mot de Passe"
+                        type="text"
+                        placeholder="Numéro de carte"
+                        name="nbCreditCard"
                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                         as={InputForm}
                         required
                       />
                       <ErrorMessage
-                        name="prevpassword"
+                        name="nbCreditCard"
                         render={(msg) => (
                           <div className="text-red-500 text-sm">{msg}</div>
                         )}
                       />
                     </div>
-
-                    <div className="col-span-6 sm:col-span-4">
+                    <div className="col-span-6 sm:col-span-2">
                       <label className="block text-sm font-medium text-gray-700">
-                        Mot de Passe
+                        Date de Validité
                       </label>
                       <Field
-                        type="password"
-                        name="password"
-                        placeholder="Mot de Passe"
+                        type="date"
+                        placeholder="Date de Validité"
+                        name="expirationDate"
                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                         as={InputForm}
                         required
@@ -99,15 +81,14 @@ const FormSecurity = ({ userId }) => {
                         )}
                       />
                     </div>
-
-                    <div className="col-span-6 sm:col-span-4">
+                    <div className="col-span-6 sm:col-span-1">
                       <label className="block text-sm font-medium text-gray-700">
-                        Confirmation Mot de Passe
+                        Cryptogram
                       </label>
                       <Field
-                        type="password"
-                        name="confirm_password"
-                        placeholder="Confirmation Mot de Passe"
+                        type="text"
+                        placeholder="Cryptogram"
+                        name="cryptogram"
                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                         as={InputForm}
                         required
@@ -143,4 +124,4 @@ const FormSecurity = ({ userId }) => {
   )
 }
 
-export default FormSecurity
+export default FormCreditCard

@@ -32,9 +32,7 @@ export default function Home() {
       .then((res) => {
         setProductTop4(res.data)
       })
-      .catch((error) => {
-        console.log(error)
-      })
+      .catch((error) => {})
   }, [])
 
   return (

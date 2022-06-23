@@ -28,13 +28,11 @@ const ProductPage = () => {
       api
         .get("/products")
         .then((res) => {
-          console.log(res)
           setLoading(true)
           setProduct(res.data)
           api
             .get("/categories")
             .then((res) => {
-              console.log(res.data)
               setCategorie(res.data)
             })
             .catch((error) => {
@@ -57,7 +55,6 @@ const ProductPage = () => {
           category: categorieDetail,
         })
         .then((res) => {
-          console.log(res)
           setProduct(res.data)
         })
         .catch((error) => {
@@ -65,7 +62,6 @@ const ProductPage = () => {
         })
   }, [priceFilter, noteFilter, colorFilter, categorieDetail])
 
-  console.log(product, product.length)
   return (
     <div>
       <HeaderNav />

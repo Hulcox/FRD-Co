@@ -25,7 +25,6 @@ const BackOfficeOrders = () => {
   const [idSelected, setIdSelected] = useState(false)
 
   const handleChange = (id) => {
-    console.log(id)
     if (id == idSelected) {
       setIdSelected(false)
     } else setIdSelected(id)
@@ -35,19 +34,19 @@ const BackOfficeOrders = () => {
     api
       .get("/orders")
       .then((res) => {
-        console.log(res)
         setOrders(res.data)
       })
       .catch((error) => {
         console.error(error)
       })
-  }, [])
+  }, [deleteOrders])
 
-  const deleteProduct = (id) => {
-    console.log(id)
-    //api.delete('/product/id')
+  const deleteOrders = (id) => {
+    api.delete("/orders/" + id).catch((error) => {
+      console.error(error)
+    })
   }
-  console.log(orders)
+
   return (
     <div className="z-0">
       <HeaderNav />
@@ -112,7 +111,7 @@ const BackOfficeOrders = () => {
                           <Tooltip title="Supprimez un produit">
                             <IconButton
                               onClick={() => {
-                                deleteProduct(id)
+                                deleteOrders(id)
                               }}
                             >
                               <Delete color="error" />
@@ -178,5 +177,8 @@ const BackOfficeOrders = () => {
     </div>
   )
 }
+
+BackOfficeOrders.private = true
+BackOfficeOrders.administration = true
 
 export default BackOfficeOrders

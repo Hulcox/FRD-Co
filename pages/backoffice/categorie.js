@@ -28,13 +28,18 @@ const BackOfficeCategorie = () => {
     api
       .get("/categories")
       .then((res) => {
-        console.log(res.data)
         setCategorie(res.data)
       })
       .catch((error) => {
         console.error(error)
       })
-  }, [])
+  }, [deleteCategorie])
+
+  const deleteCategorie = (id) => {
+    api.delete("/categorie/" + id).catch((error) => {
+      console.error(error)
+    })
+  }
 
   return (
     <div className="z-0 ">
@@ -60,7 +65,7 @@ const BackOfficeCategorie = () => {
               aria-controls="modify-product-panel"
               id="modify-product-panel"
             >
-              <Typography>Modifier une catégorie</Typography>
+              <Typography>Liste des catégories</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <TableContainer component={Paper}>
@@ -69,11 +74,12 @@ const BackOfficeCategorie = () => {
                     <TableRow>
                       <TableCell>Id</TableCell>
                       <TableCell align="right">Name</TableCell>
+                      <TableCell align="right">Description</TableCell>
                       <TableCell align="right">Supprimer</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {categorie.map(({ id, name }, key) => (
+                    {categorie.map(({ id, name, description }, key) => (
                       <>
                         <TableRow
                           key={key}
@@ -85,11 +91,12 @@ const BackOfficeCategorie = () => {
                             {key}
                           </TableCell>
                           <TableCell align="right">{name}</TableCell>
+                          <TableCell align="right">{description}</TableCell>
                           <TableCell align="right">
                             <Tooltip title="Supprimez une Catégorie">
                               <IconButton
                                 onClick={() => {
-                                  deleteProduct(productItem.id)
+                                  deleteCategorie(id)
                                 }}
                               >
                                 <Delete color="error" />
@@ -109,4 +116,8 @@ const BackOfficeCategorie = () => {
     </div>
   )
 }
+
+BackOfficeCategorie.private = true
+BackOfficeCategorie.administration = true
+
 export default BackOfficeCategorie

@@ -1,9 +1,19 @@
 import axios from "axios"
 
+let jwt = null
+
+const getJWT = () => {
+  jwt = jwt ?? localStorage.getItem("jwt")
+
+  return jwt
+}
+
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_URL_API,
+  withCredentials: true,
   transformRequest: [
     (data, headers) => {
+      headers.token = getJWT()
       headers.post["Content-Type"] = "application/json"
       headers.put["Content-Type"] = "application/json"
       headers.patch["Content-Type"] = "application/json"

@@ -3,7 +3,10 @@ import { createContext, useCallback, useEffect, useState } from "react"
 const AppContext = createContext({})
 
 export const AppContextProvider = (props) => {
-  const [user, setUser] = useState({ test: "test" })
+  const { pageComponent: Page, router, ...otherProps } = props
+
+  const [user, setUser] = useState({})
+  const [userId, setUserId] = useState(null)
   const [userLevel, setUserLevel] = useState(null)
   const [creditCard, setCreditCard] = useState({
     numero: "123",
@@ -29,6 +32,7 @@ export const AppContextProvider = (props) => {
   const [noteFilter, setNoteFilter] = useState(null)
   const [priceFilter, setPriceFilter] = useState([0, 1000])
   const [orders, setOrders] = useState([])
+  const [livraisonAdress, setLivraisonAdress] = useState(null)
   const [users, setUsers] = useState([])
 
   const handleSetUser = useCallback((value) => {
@@ -43,19 +47,16 @@ export const AppContextProvider = (props) => {
   const [totalCart, setTotalCart] = useState(0)
 
   useEffect(() => {
-    const existingUserLevel = localStorage.getItem("userLevel")
-    console.log(existingUserLevel)
-    if (existingUserLevel) {
-      setUserLevel(existingUserLevel)
-    } else if (localStorage.getItem("token")) {
-      console.log(localStorage.getItem("token"))
-      localStorage.setItem("userLevel", "c")
-      setUserLevel("c")
-    } else {
-      localStorage.setItem("userLevel", "nc")
-      setUserLevel("nc")
+    if ((userLevel == "ROLE_USER") === null && Page.private) {
+      router.push("/login/sign-in")
     }
-  }, [])
+  }, [Page.private, router, user])
+
+  useEffect(() => {
+    if (userLevel == "ROLE_ADMIN" && Page.administration) {
+      router.push("/")
+    }
+  }, [Page.administration, router, session])
 
   useEffect(() => {
     let totalPrice = 0
@@ -71,12 +72,10 @@ export const AppContextProvider = (props) => {
     if (localCart) {
       setCart(localCart)
       localCart.map(({ price, quantityOnCart }) => {})
-      console.log(localCart)
     }
   }, [])
 
   const addCartItem = (item) => {
-    console.log("addItem", item, cart)
     const cartCopy = [...cart]
 
     const { id } = item
@@ -157,6 +156,10 @@ export const AppContextProvider = (props) => {
         setUserLevel,
         productTop4,
         setProductTop4,
+        userId,
+        setUserId,
+        setLivraisonAdress,
+        livraisonAdress,
       }}
     />
   )

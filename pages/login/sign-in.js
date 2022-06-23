@@ -9,12 +9,8 @@ import InputForm from "../../src/components/formikComponents/InputForm"
 import HeaderNav from "../../src/components/header/header"
 
 const LoginPageSignIn = () => {
-  const { userLevel, setUserLevel } = useContext(AppContext)
+  const { setUserLevel, setUserId, handleSetUser } = useContext(AppContext)
   const router = useRouter()
-
-  const classNames = (...classes) => {
-    return classes.filter(Boolean).join(" ")
-  }
 
   const CommentSchema = Yup.object().shape({
     email: Yup.string().email().required(" Required"),
@@ -22,7 +18,6 @@ const LoginPageSignIn = () => {
   })
 
   const handleFormSubmit = useCallback((value, { resetForm }) => {
-    console.log(value)
     try {
       fetchRemote(value)
     } catch (error) {
@@ -31,19 +26,21 @@ const LoginPageSignIn = () => {
   }, [])
 
   const fetchRemote = (value) => {
-    console.log(value)
     api
-      .post("/users/signIn", {
+      .post("/api/auth/sign-in", {
         email: value.email,
         password: value.password,
       })
       .then((res) => {
         const data = res.data
-        console.log(data)
-        localStorage.setItem("token", data)
-        localStorage.setItem("userLevel", "user")
-        setUserLevel("user")
+        localStorage.setItem("token", data.accessToken)
+        localStorage.setItem("userLevel", data.roles[0])
+        setUserLevel(data.roles[0])
+        setUserId(data.id)
         router.push("/home")
+        api.get("/users/" + data.id).then((res) => {
+          handleSetUser(res.data)
+        })
       })
       .catch((error) => {})
   }

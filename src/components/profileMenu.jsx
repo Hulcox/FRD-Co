@@ -20,7 +20,6 @@ const ProfileMenu = ({ children }) => {
     router.push("/home")
   }
 
-  console.log(selected)
   return (
     <div className="flex flex-row mx-auto w-1/2 mt-8 ">
       <div className="w-1/4 h-auto bg-slate-200 shadow-gray-100 shadow-md rounded">

@@ -37,7 +37,6 @@ const ProductDetail = () => {
           console.error(error)
         })
   }, [id])
-  console.log(images, selectedImage)
   if (!loading) return <div></div>
   else
     return (

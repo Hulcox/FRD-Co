@@ -12,4 +12,7 @@ const BackOffice = () => {
   )
 }
 
+BackOffice.private = true
+BackOffice.administration = true
+
 export default BackOffice

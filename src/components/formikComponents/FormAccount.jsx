@@ -30,7 +30,23 @@ const FormAccount = ({ edit, adminForm, userDetails }) => {
 
   const handleFormSubmit = useCallback((value, { resetForm }) => {
     try {
-      console.log(value)
+      /* edit
+      ? api
+          .put("/users/"+userDetails.id+"/save", value)
+          .then(() => {
+            resetForm()
+          })
+          .catch((error) => {
+            console.log(error)
+          })
+      : api
+          .post("/users/"+userDetails.id+"/save", value)
+          .then(() => {
+            resetForm()
+          })
+          .catch((error) => {
+            console.log(error)
+          })*/
     } catch (error) {
       resetForm()
     }
@@ -170,7 +186,7 @@ const FormAccount = ({ edit, adminForm, userDetails }) => {
                     </div>
                     <div className="col-span-6 sm:col-span-6 lg:col-span-2">
                       <label className="block text-sm font-medium text-gray-700">
-                        City
+                        Ville
                       </label>
                       <Field
                         type="text"
@@ -230,7 +246,7 @@ const FormAccount = ({ edit, adminForm, userDetails }) => {
                     fullWidth
                     className="bg-[#6667ab] w-full h-[20%] p-2"
                   >
-                    Submit
+                    {edit ? "Modifier" : "Envoyer"}
                   </Button>
                 </div>
               </div>

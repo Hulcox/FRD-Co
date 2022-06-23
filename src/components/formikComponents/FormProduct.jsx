@@ -9,26 +9,24 @@ import ProductImages from "../content/ProductImages"
 import InputForm from "./InputForm"
 
 const CommentSchema = Yup.object().shape({
-  name: Yup.string()
-    .required("Requis")
-    .min(1, "Please enter the Name of the product"),
+  name: Yup.string().required("Requis").min(1, "Entrez le nom du produit"),
   description: Yup.string()
     .required("Requis")
-    .min(1, "Please enter the Description of the product"),
-  price: Yup.number().positive("Negative value is not allowed").required(),
+    .min(1, "Entrez la description du produit"),
+  price: Yup.number().positive("Valeur négative non autorisée").required(),
   rate: Yup.number()
-    .positive("Negative value is not allowed")
+    .positive("Valeur négative non autorisée")
     .max(5, "Note maximun 5 étoiles")
     .integer()
     .nullable(),
-  stock: Yup.number().positive("Negative value is not allowed").integer(),
+  stock: Yup.number().positive("Valeur négative non autorisée").integer(),
   images: Yup.array().length(4, "Maximun 4 images").max(4, "Maximun 4 images"),
 })
 
 const FormProduct = ({ edit, productDetails }) => {
   const { categorie, setCategorie } = useContext(AppContext)
   const handleFormSubmit = useCallback((value, { resetForm }) => {
-    edit
+    /* edit
       ? api
           .put("/admin/products/save", {
             //put doesn't work because the route are not added into the api at the 26/06/2022
@@ -70,14 +68,13 @@ const FormProduct = ({ edit, productDetails }) => {
           })
           .catch((error) => {
             console.log(error)
-          })
+          })*/
   }, [])
 
   useEffect(() => {
     api
       .get("/categories")
       .then((res) => {
-        console.log(res.data)
         setCategorie(res.data)
       })
       .catch((error) => {
@@ -331,7 +328,7 @@ const FormProduct = ({ edit, productDetails }) => {
                     fullWidth
                     className="bg-[#6667ab] w-full h-[20%] p-2"
                   >
-                    Submit
+                    {edit ? "Modifier" : "Envoyer"}
                   </Button>
                 </div>
               </div>

@@ -11,7 +11,6 @@ const Commande = ({ step, handleClick }) => {
   const router = useRouter()
 
   const verification = () => {
-    console.log(user)
     if (user) {
       handleClick(1)
     } else
@@ -71,7 +70,7 @@ const Commande = ({ step, handleClick }) => {
           className="bg-[#6667ab] w-full h-[20%] p-2 mt-8 rounded-md"
           color="primary"
           variant="contained"
-          disabled={cart.length == 0}
+          //disabled={cart.length == 0}
         >
           Completez la commande
         </Button>
