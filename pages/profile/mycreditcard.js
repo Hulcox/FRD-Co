@@ -3,7 +3,7 @@ import FormAccount from "../../src/components/formikComponents/FormAccount"
 import HeaderNav from "../../src/components/header/header"
 import DrawerProduct from "../../src/components/profile/DrawerProduct"
 
-const ProfileAccountPage = ({}) => {
+const ProfileCreditCardtPage = ({}) => {
   const [modified, setModified] = useState(false)
 
   return (
@@ -22,4 +22,4 @@ const ProfileAccountPage = ({}) => {
   )
 }
 
-export default ProfileAccountPage
+export default ProfileCreditCardtPage

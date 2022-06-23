@@ -1,12 +1,11 @@
 import { ErrorMessage, Field, Form, Formik } from "formik"
-import { useRouter } from "next/router"
-import { useCallback, useContext } from "react"
+import { useCallback } from "react"
 import InputForm from "./InputForm"
 import * as Yup from "yup"
-import api from "../api"
 import { Button } from "@mui/material"
+import api from "../api"
 
-const FormAccount = ({ edit, adminForm, userDetails }) => {
+const FormSignUp = ({ userDetails }) => {
   const CommentSchema = Yup.object().shape({
     name: Yup.string().required(" Required").min(1, "Entrez votre Prénom"),
     lastName: Yup.string()
@@ -30,7 +29,14 @@ const FormAccount = ({ edit, adminForm, userDetails }) => {
 
   const handleFormSubmit = useCallback((value, { resetForm }) => {
     try {
-      console.log(value)
+      api
+        .post("/users/signUp", { ...value })
+        .then(() => {
+          resetForm()
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     } catch (error) {
       resetForm()
     }
@@ -204,26 +210,12 @@ const FormAccount = ({ edit, adminForm, userDetails }) => {
                         )}
                       />
                     </div>
-                    {adminForm ? (
-                      <div className="col-span-6 sm:col-span-3 lg:col-span-2">
-                        <label className="block text-sm font-medium text-gray-700">
-                          Role
-                        </label>
-                        <Field
-                          type="text"
-                          name="role"
-                          placeholder="Role"
-                          className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                          as={InputForm}
-                        />
-                      </div>
-                    ) : null}
                   </div>
                 </div>
                 <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
                   <Button
                     type="submit"
-                    disabled={isSubmitting || edit}
+                    disabled={isSubmitting}
                     sx={{ mt: 2 }}
                     color="primary"
                     variant="contained"
@@ -242,4 +234,4 @@ const FormAccount = ({ edit, adminForm, userDetails }) => {
   )
 }
 
-export default FormAccount
+export default FormSignUp

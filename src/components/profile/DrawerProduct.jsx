@@ -1,12 +1,9 @@
 import {
-  Category,
-  Group,
+  CreditCard,
   Inventory,
+  Key,
   MeetingRoom,
   Person,
-  Sell,
-  Shop,
-  ShoppingBag,
 } from "@mui/icons-material"
 import {
   Divider,
@@ -19,30 +16,30 @@ import {
   Toolbar,
 } from "@mui/material"
 import { useEffect, useState } from "react"
-import DrawerItem from "./DrawerItem"
 import { useRouter } from "next/router"
+import DrawerItem from "../backOffice/DrawerItem"
 
 const DrawerItemList1 = [
-  { text: "product", icon: <Inventory />, link: "/backoffice/product" },
-  { text: "Catégorie", icon: <Category />, link: "/backoffice/categorie" },
-  { text: "user", icon: <Person />, link: "/backoffice/user" },
-]
-const DrawerItemList2 = [
-  { text: "All products", icon: <ShoppingBag />, link: "/backoffice/products" },
-  { text: "All users", icon: <Group />, link: "/backoffice/users" },
-  { text: "All orders", icon: <Shop />, link: "/backoffice/orders" },
+  { text: "mes Commandes", icon: <Inventory />, link: "/profile/account" },
+  { text: "Mon Compte", icon: <Person />, link: "/profile/account" },
+  { text: "Sécurité", icon: <Key />, link: "/profile/account" },
+  {
+    text: "Mes Cartes de Crédit",
+    icon: <CreditCard />,
+    link: "/profile/account",
+  },
 ]
 
-const DrawerBackOffice = () => {
+const DrawerProduct = () => {
   const router = useRouter()
   const [selected, setSelected] = useState(router.asPath)
 
   const handleExit = () => {
-    router.push("/home")
+    router.push("/logout")
   }
 
   useEffect(() => {
-    console.log(router)
+    console.log(router, selected)
   }, [])
   return (
     <Drawer
@@ -73,22 +70,12 @@ const DrawerBackOffice = () => {
       </List>
       <Divider />
       <List>
-        {DrawerItemList2.map(({ text, icon, link }, key) => (
-          <DrawerItem
-            text={text}
-            icon={icon}
-            link={link}
-            key={key}
-            selected={link == selected ? true : false}
-          />
-        ))}
-        <Divider />
         <ListItem disablePadding>
           <ListItemButton onClick={handleExit}>
             <ListItemIcon>
               <MeetingRoom sx={{ color: "white" }} />
             </ListItemIcon>
-            <ListItemText primary={"Sortir"} sx={{ color: "white" }} />
+            <ListItemText primary={"Deconnection"} sx={{ color: "white" }} />
           </ListItemButton>
         </ListItem>
       </List>
@@ -96,4 +83,4 @@ const DrawerBackOffice = () => {
   )
 }
 
-export default DrawerBackOffice
+export default DrawerProduct

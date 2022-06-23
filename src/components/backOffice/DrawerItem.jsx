@@ -11,10 +11,7 @@ const DrawerItem = ({ icon, text, link, selected }) => {
 
   return (
     <ListItem disablePadding>
-      <ListItemButton
-        onClick={() => router.push("/backoffice/" + link)}
-        selected={selected}
-      >
+      <ListItemButton onClick={() => router.push(link)} selected={selected}>
         <ListItemIcon sx={{ color: "white" }}>{icon}</ListItemIcon>
         <ListItemText primary={text} sx={{ color: "white" }} />
       </ListItemButton>

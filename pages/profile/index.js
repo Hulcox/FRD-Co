@@ -1,14 +1,15 @@
-import HeaderNavBar from "../../src/components/header/header"
+import HeaderNav from "../../src/components/header/header"
+import DrawerProduct from "../../src/components/profile/DrawerProduct"
 import ProfileMenu from "../../src/components/profileMenu"
 
 const ProfilePage = () => {
   return (
-    <div>
-      <HeaderNavBar />
-      <div className="mx-auto w-1/2 mt-20 shadow-gray-100 shadow-md p-4 flex justify-between bg-slate-200 items-center rounded">
-        <h1 className="text-xl font-bold">{"My Profil"}</h1>
+    <div className="z-0">
+      <HeaderNav />
+      <div className="bg-[#c2c6c8] p-[1vw] rounded-lg">
+        <DrawerProduct />
+        <div className="m-[1vw] mt-[12vh] w-full"></div>
       </div>
-      <ProfileMenu></ProfileMenu>
     </div>
   )
 }

@@ -3,8 +3,6 @@ import {
   Button,
   Collapse,
   IconButton,
-  List,
-  ListItem,
   Paper,
   Table,
   TableBody,
@@ -57,11 +55,13 @@ const BackOfficeUsers = () => {
             <Table sx={{ minWidth: 650 }}>
               <TableHead>
                 <TableRow>
-                  <TableCell>Id</TableCell>
                   <TableCell>Nom</TableCell>
+                  <TableCell>Id</TableCell>
+
                   <TableCell align="right">Prenom</TableCell>
                   <TableCell align="right">Civilité</TableCell>
                   <TableCell align="right">email</TableCell>
+                  <TableCell align="right">Supprimer</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -86,7 +86,6 @@ const BackOfficeUsers = () => {
                           "&:last-child td, &:last-child th": { border: 0 },
                         }}
                       >
-                        <TableCell>{key}</TableCell>
                         <TableCell component="th" scope="row">
                           <Button
                             variant="contained"
@@ -99,13 +98,12 @@ const BackOfficeUsers = () => {
                             {lastName}
                           </Button>
                         </TableCell>
+                        <TableCell>{key}</TableCell>
+
                         <TableCell align="right">{name}</TableCell>
                         <TableCell align="right">{civility}</TableCell>
                         <TableCell align="right">{email}</TableCell>
                         <TableCell align="right">
-                          <IconButton>
-                            <Edit color="success" />
-                          </IconButton>
                           <IconButton
                             onClick={() => {
                               deleteProduct(id)
@@ -115,53 +113,49 @@ const BackOfficeUsers = () => {
                           </IconButton>
                         </TableCell>
                       </TableRow>
-                      <Collapse
-                        in={idSelected == id}
-                        timeout="auto"
-                        unmountOnExit
+                      <TableRow
+                        component="div"
+                        disablePadding
+                        sx={{ ml: 8, width: "auto" }}
                       >
-                        <List
-                          component="div"
-                          disablePadding
-                          sx={{ ml: 8, width: "auto" }}
+                        <TableCell
+                          style={{ paddingBottom: 0, paddingTop: 0 }}
+                          colSpan={6}
                         >
-                          <ListItem
-                            sx={{
-                              display: "flex",
-                              flexDirection: "column",
-                            }}
+                          <Collapse
+                            in={idSelected == id}
+                            timeout="auto"
+                            unmountOnExit
                           >
-                            <div className="font-bold flex">
-                              {"ID: "}
-                              <p className="font-normal italic ml-2">{id}</p>
+                            <div>
+                              <Table size="small" aria-label="purchases">
+                                <TableHead>
+                                  <TableRow>
+                                    <TableCell>ID</TableCell>
+                                    <TableCell>Nom</TableCell>
+                                    <TableCell>Age</TableCell>
+                                    <TableCell>Email</TableCell>
+                                    <TableCell>Admin</TableCell>
+                                    <TableCell>Carte de crédit</TableCell>
+                                  </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                  <TableRow key={key}>
+                                    <TableCell>{id}</TableCell>
+                                    <TableCell>
+                                      {lastName + " " + name}
+                                    </TableCell>
+                                    <TableCell>{age}</TableCell>
+                                    <TableCell>{email}</TableCell>
+                                    <TableCell>{admin}</TableCell>
+                                    <TableCell>{bankCard}</TableCell>
+                                  </TableRow>
+                                </TableBody>
+                              </Table>
                             </div>
-                            <div className="font-bold flex">
-                              {"Nom: "}
-                              <p className="font-normal italic ml-2">
-                                {lastName + " " + name}
-                              </p>
-                            </div>
-                            <div className="font-bold flex">
-                              {"Age: "}
-                              <p className="font-normal italic ml-2">{age}</p>
-                            </div>
-                            <div className="font-bold flex">
-                              {"Email: "}
-                              <p className="font-normal italic ml-2">{email}</p>
-                            </div>
-                            <div className="font-bold flex">
-                              {"Admin: "}
-                              <p className="font-normal italic ml-2">{admin}</p>
-                            </div>
-                            <div className="font-bold flex">
-                              {"Carte de crédit: "}
-                              <p className="font-normal italic ml-2">
-                                {bankCard}
-                              </p>
-                            </div>
-                          </ListItem>
-                        </List>
-                      </Collapse>
+                          </Collapse>
+                        </TableCell>
+                      </TableRow>
                     </>
                   )
                 )}

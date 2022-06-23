@@ -13,6 +13,7 @@ export const AppContextProvider = (props) => {
   const [notification, setNotification] = useState([])
   const [categorie, setCategorie] = useState([])
   const [product, setProduct] = useState([])
+  const [productTop4, setProductTop4] = useState([])
   const [categorieDetail, setCategorieDetail] = useState(null)
   const [productDetail, handleSetProductDetail] = useState("Tulepor")
   const [colorList, setColorList] = useState([
@@ -154,6 +155,8 @@ export const AppContextProvider = (props) => {
         setNotification,
         userLevel,
         setUserLevel,
+        productTop4,
+        setProductTop4,
       }}
     />
   )

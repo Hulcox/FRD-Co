@@ -18,21 +18,33 @@ const ProductPage = () => {
     noteFilter,
     priceFilter,
     categorieDetail,
+    categorie,
+    setCategorie,
   } = useContext(AppContext)
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    if (!loading)
+    if (!loading) {
       api
         .get("/products")
         .then((res) => {
           console.log(res)
           setLoading(true)
           setProduct(res.data)
+          api
+            .get("/categories")
+            .then((res) => {
+              console.log(res.data)
+              setCategorie(res.data)
+            })
+            .catch((error) => {
+              console.error(error)
+            })
         })
         .catch((error) => {
           console.error(error)
         })
+    }
   }, [])
 
   useEffect(() => {
@@ -75,7 +87,6 @@ const ProductPage = () => {
               </div>
             ) : (
               <div className="w-[85vw]">
-                1-3 sur plus de 100 000 résultats
                 <ProductList product={product} />
               </div>
             )}

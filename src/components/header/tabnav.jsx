@@ -48,19 +48,15 @@ const TabNav = ({ className, window }) => {
   const [anchorE2, setAnchorE2] = useState(null)
   const isMenuNotificationOpen = Boolean(anchorE2)
   const isMenuOpen = Boolean(anchorEl)
-
   const handleNotificationMenuOpen = (event) => {
     setAnchorE2(event.currentTarget)
   }
-
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget)
   }
-
   const handleMenu = (value) => {
     router.push(value)
   }
-
   const handleMenuClose = () => {
     setAnchorEl(null)
   }
@@ -107,17 +103,9 @@ const TabNav = ({ className, window }) => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      {userLevel == "nc" ? (
-        <MenuItem onClick={() => handleMenu("/login/sign-in")}>
-          Sign In
-        </MenuItem>
-      ) : null}
-      {userLevel == "nc" ? (
-        <MenuItem onClick={() => handleMenu("/login/sign-up")}>
-          Sign Up
-        </MenuItem>
-      ) : null}
-      {userLevel == "c" || userLevel == "admin" ? (
+      <MenuItem onClick={() => handleMenu("/login/sign-in")}>Sign In</MenuItem>
+      <MenuItem onClick={() => handleMenu("/login/sign-up")}>Sign Up</MenuItem>
+      {userLevel == "user" || userLevel == "admin" ? (
         <MenuItem onClick={() => handleMenu("/profile")}>Profil</MenuItem>
       ) : null}
       {userLevel == "admin" ? (

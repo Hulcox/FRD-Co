@@ -41,8 +41,8 @@ const LoginPageSignIn = () => {
         const data = res.data
         console.log(data)
         localStorage.setItem("token", data)
-        localStorage.setItem("userLevle", "c")
-        setUserLevel("c")
+        localStorage.setItem("userLevel", "user")
+        setUserLevel("user")
         router.push("/home")
       })
       .catch((error) => {})

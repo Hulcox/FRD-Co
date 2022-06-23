@@ -1,54 +1,22 @@
-import { Done, KeyboardArrowDown, Search } from "@mui/icons-material"
+import { Search } from "@mui/icons-material"
 import {
   Autocomplete,
-  Button,
   FormControl,
   IconButton,
-  Input,
   InputLabel,
-  Menu,
   MenuItem,
   Select,
   TextField,
 } from "@mui/material"
 import { useRouter } from "next/router"
-import { useContext, useState } from "react"
+import { useContext } from "react"
 import AppContext from "../AppContext"
-
-const optionsMenu = [
-  "Dernière nouveautés",
-  " Prix croissant",
-  "Prix décroissant",
-  "Note (croissant)",
-]
-
-const optionsCategorie = ["all", "chaise", "canape", "table", "lit"]
+import FilterByTri from "./filtreTri"
 
 const SearchBar = () => {
-  const {
-    categorieDetail,
-    setCategorieDetail,
-    productDetail,
-    setProductDetail,
-    product,
-  } = useContext(AppContext)
+  const { categorieDetail, setCategorieDetail, product, categorie } =
+    useContext(AppContext)
   const router = useRouter()
-
-  const [menu, setMenu] = useState(null)
-  const [selectedMenuIndex, setSelectedMenuIndex] = useState(0)
-  const open = Boolean(menu)
-
-  const handleClick = (event) => {
-    setMenu(event.currentTarget)
-  }
-  const handleMenuItemClick = (event, index) => {
-    setSelectedMenuIndex(index)
-    setMenu(null)
-  }
-
-  const handleClose = () => {
-    setMenu(null)
-  }
 
   const handleChange = (event) => {
     setCategorieDetail(event.target.value)
@@ -77,8 +45,9 @@ const SearchBar = () => {
               label="Catégorie : "
               onChange={handleChange}
             >
-              {optionsCategorie.map((option, index) => (
-                <MenuItem value={option}>{option}</MenuItem>
+              <MenuItem value={"all"}>{"All"}</MenuItem>
+              {categorie.map((option, index) => (
+                <MenuItem value={option.name}>{option.name}</MenuItem>
               ))}
             </Select>
           </FormControl>
@@ -102,42 +71,7 @@ const SearchBar = () => {
             )}
           />
         </div>
-        <div className="self-center mx-2">
-          <Button
-            variant="contained"
-            onClick={handleClick}
-            endIcon={<KeyboardArrowDown />}
-            className="bg-[#6667ab]"
-          >
-            Trier par :
-          </Button>
-          <Menu
-            elevation={0}
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "right",
-            }}
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            anchorEl={menu}
-            open={open}
-            onClose={handleClose}
-            color="primary"
-          >
-            {optionsMenu.map((option, index) => (
-              <MenuItem
-                onClick={(event) => handleMenuItemClick(event, index)}
-                disableRipple
-                selected={index === selectedMenuIndex}
-              >
-                {index === selectedMenuIndex ? <Done sx={{ mr: 1 }} /> : null}
-                {option}
-              </MenuItem>
-            ))}
-          </Menu>
-        </div>
+        <FilterByTri />
       </div>
     </>
   )

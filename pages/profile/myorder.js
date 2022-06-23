@@ -1,27 +1,11 @@
-import { Delete, Edit, StarBorder } from "@mui/icons-material"
-import {
-  Button,
-  Collapse,
-  IconButton,
-  List,
-  ListItem,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Tooltip,
-} from "@mui/material"
 import { useContext, useEffect, useState } from "react"
-import api from "../../src/components/api"
 import AppContext from "../../src/components/AppContext"
-import DrawerBackOffice from "../../src/components/backOffice/DrawerBackOffice"
+import FormAccount from "../../src/components/formikComponents/FormAccount"
 import HeaderNav from "../../src/components/header/header"
+import DrawerProduct from "../../src/components/profile/DrawerProduct"
 
-const BackOfficeOrders = () => {
-  const { orders, setOrders } = useContext(AppContext)
+const ProfileOrdersPage = ({}) => {
+  const { user, orders, setOrders } = useContext(AppContext)
   const [idSelected, setIdSelected] = useState(false)
 
   const handleChange = (id) => {
@@ -33,7 +17,7 @@ const BackOfficeOrders = () => {
 
   useEffect(() => {
     api
-      .get("/orders")
+      .get("/orders/" + id + "allOrders")
       .then((res) => {
         console.log(res)
         setOrders(res.data)
@@ -43,16 +27,11 @@ const BackOfficeOrders = () => {
       })
   }, [])
 
-  const deleteProduct = (id) => {
-    console.log(id)
-    //api.delete('/product/id')
-  }
-  console.log(orders)
   return (
     <div className="z-0">
       <HeaderNav />
-      <div className="bg-[#c2c6c8] p-[1vw] rounded-lg flex">
-        <DrawerBackOffice />
+      <div className="bg-[#c2c6c8] p-[1vw] rounded-lg">
+        <DrawerProduct />
         <div className="m-[1vw] mt-[12vh] w-full">
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }}>
@@ -64,7 +43,7 @@ const BackOfficeOrders = () => {
                   <TableCell align="right">Adresse de Livraison</TableCell>
                   <TableCell align="right">total</TableCell>
                   <TableCell align="right">Utilisateur</TableCell>
-                  <TableCell align="right">Supprimer</TableCell>
+                  <TableCell align="right">Modifier/Supprimer</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -179,4 +158,4 @@ const BackOfficeOrders = () => {
   )
 }
 
-export default BackOfficeOrders
+export default ProfileOrdersPage

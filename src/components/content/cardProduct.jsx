@@ -1,7 +1,7 @@
 import { Divider } from "@mui/material"
-import Image from "next/image"
+import ProductImages from "./ProductImages"
 
-const CardProduct = ({ image, title, description, width, height, reverse }) => {
+const CardProduct = ({ image, title, description, reverse }) => {
   return (
     <>
       <div
@@ -10,7 +10,14 @@ const CardProduct = ({ image, title, description, width, height, reverse }) => {
         }
       >
         <div className=" box-content">
-          <Image src={image} alt="test" width={width} height={height} />
+          <ProductImages
+            sx={{ mb: 2 }}
+            width={640}
+            height={640}
+            image={image}
+            name={"image" + title}
+            className="m-auto mb-2  max-w-[640px] align-baseline"
+          />
         </div>
         <div className="flex-col mx-auto my-auto">
           <h1 className="text-5xl font-bold pb-4">{title}</h1>

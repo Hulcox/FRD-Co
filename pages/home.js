@@ -9,8 +9,13 @@ import Canape from "../public/images/canape.jpg"
 import CardCateorie from "../src/components/content/cardCategorie"
 import SliderProduct from "../src/components/content/sliderProduct"
 import FooterPage from "../src/components/footer/footer"
+import { useContext, useEffect } from "react"
+import api from "../src/components/api"
+import AppContext from "../src/components/AppContext"
 
 export default function Home() {
+  const { productTop4, setProductTop4 } = useContext(AppContext)
+
   var settings = {
     dots: true,
     infinite: true,
@@ -21,6 +26,17 @@ export default function Home() {
 
   const row = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
+  useEffect(() => {
+    api
+      .get("/products/top4")
+      .then((res) => {
+        setProductTop4(res.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }, [])
+
   return (
     <div className="bg-white">
       <HeaderNav image />
@@ -28,36 +44,14 @@ export default function Home() {
         <h2 className="text-2xl font-bold align-baseline">
           Produit Populaire :{" "}
         </h2>
-        <CardProduct
-          image={Chairs}
-          title={"Modalvita"}
-          description={"Chaise molletonné en tissu d'alpaga"}
-          width={640}
-          height={800}
-        />
-        <CardProduct
-          image={Canape}
-          title={"Tulepor"}
-          description={"Canapé en cuir"}
-          width={640}
-          height={426}
-          reverse
-        />
-        <CardProduct
-          image={Table2}
-          title={"Cadiac"}
-          description={"Chaise molletonné en tissu d'alpaga"}
-          width={640}
-          height={800}
-        />
-        <CardProduct
-          image={Commode}
-          title={"Felix"}
-          description={"Canapé en cuir"}
-          width={640}
-          height={426}
-          reverse
-        />
+        {productTop4.map(({ image1, name, description }, key) => (
+          <CardProduct
+            image={image1}
+            title={name}
+            description={description}
+            reverse={key % 2 == 1}
+          />
+        ))}
         <CardCateorie
           imageDroite={Sofa}
           imageGauche={Table}
