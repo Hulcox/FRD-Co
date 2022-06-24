@@ -43,7 +43,7 @@ const BackOfficeProducts = () => {
   }, [])
 
   const deleteProduct = (id) => {
-    api.delete("/products/" + id).catch((error) => {
+    api.delete("/products/delete/" + id).catch((error) => {
       console.error(error)
     })
   }
