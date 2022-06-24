@@ -1,3 +1,7 @@
+## Documentation
+
+[https://docs.google.com/document/d/1DRHAing69FP63OO96rWz3LA__vFhDyM1EoQUm0aM5OU/edit?usp=sharing]
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
