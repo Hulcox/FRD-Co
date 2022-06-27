@@ -38,29 +38,27 @@ const FormSignUp = () => {
 
   const handleFormSubmit = useCallback((value, { resetForm }) => {
     try {
-      api
-        .post("/api/auth/sign-up", {
-          name: value.name,
-          lastName: value.lastName,
-          age: value.age,
-          email: value.email,
-          street: value.street,
-          zipCode: user.zipCode,
-          city: value.city,
-          civility: value.civility,
-          role: "user",
-          password: value.password,
-        })
-        .then(() => {
-          resetForm()
-        })
-        .catch((error) => {
-          console.error(error)
-        })
-    } catch (error) {
+      resetForm()
+      fetchData(value)
+    } catch {
       resetForm()
     }
   }, [])
+
+  const fetchData = async (value) => {
+    await api.post("/api/auth/sign-up", {
+      name: value.name,
+      lastName: value.lastName,
+      age: value.age,
+      email: value.email,
+      street: value.street,
+      zipCode: value.zipCode,
+      city: value.city,
+      civility: value.civility,
+      role: value.role,
+      password: value.password,
+    })
+  }
 
   return (
     <div>
@@ -73,7 +71,7 @@ const FormSignUp = () => {
             age: "",
             email: "",
             street: "",
-            zipCode: null,
+            zipCode: "",
             city: "",
             civility: "",
             role: "user",
