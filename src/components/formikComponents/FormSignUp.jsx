@@ -25,12 +25,32 @@ const FormSignUp = ({ userDetails }) => {
       .nullable(),
     city: Yup.string().nullable(),
     civility: Yup.string().required("Requis"),
+    password: Yup.string()
+      .required("S'il vous plait entrez votre mot de passe")
+      .matches(
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/gm,
+        "Mot de passe doit contenir minimun 8 characteres, 1 majuscule et un charactere spéciale"
+      ),
+    confirm_password: Yup.string()
+      .required("S'il vous plait entrez votre confirmation mot de passe")
+      .oneOf([Yup.ref("password"), null], "Le mot de passe ne correspond pas"),
   })
 
   const handleFormSubmit = useCallback((value, { resetForm }) => {
     try {
       api
-        .post("/api/auth/sign-up", value)
+        .post("/api/auth/sign-up", {
+          name: value.name,
+          lastName: value.lastName,
+          age: value.age,
+          email: value.email,
+          street: value.street,
+          zipCode: user.zipCode,
+          city: value.city,
+          civility: value.civility,
+          role: "user",
+          password: value.password,
+        })
         .then(() => {
           resetForm()
         })
@@ -57,6 +77,8 @@ const FormSignUp = ({ userDetails }) => {
             city: userDetails ? userDetails.city : "",
             civility: userDetails ? userDetails.civility : "",
             role: userDetails ? userDetails.role : "user",
+            password: userDetails ? userDetails.password : "",
+            confirm_password: "",
           }}
           onSubmit={handleFormSubmit}
         >
@@ -212,6 +234,46 @@ const FormSignUp = ({ userDetails }) => {
                     </div>
                   </div>
                 </div>
+                <div className="col-span-6 sm:col-span-4">
+                  <label className="block text-sm font-medium text-gray-700">
+                    Mot de Passe
+                  </label>
+                  <Field
+                    type="password"
+                    name="password"
+                    placeholder="Mot de Passe"
+                    className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    as={InputForm}
+                    required
+                  />
+                  <ErrorMessage
+                    name="password"
+                    render={(msg) => (
+                      <div className="text-red-500 text-sm">{msg}</div>
+                    )}
+                  />
+                </div>
+
+                <div className="col-span-6 sm:col-span-4">
+                  <label className="block text-sm font-medium text-gray-700">
+                    Confirmation Mot de Passe
+                  </label>
+                  <Field
+                    type="password"
+                    name="confirm_password"
+                    placeholder="Confirmation Mot de Passe"
+                    className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    as={InputForm}
+                    required
+                  />
+                  <ErrorMessage
+                    name="confirm_password"
+                    render={(msg) => (
+                      <div className="text-red-500 text-sm">{msg}</div>
+                    )}
+                  />
+                </div>
+
                 <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
                   <Button
                     type="submit"
