@@ -5,7 +5,7 @@ import * as Yup from "yup"
 import { Button } from "@mui/material"
 import api from "../api"
 
-const FormSignUp = ({ userDetails }) => {
+const FormSignUp = () => {
   const CommentSchema = Yup.object().shape({
     name: Yup.string().required(" Required").min(1, "Entrez votre Prénom"),
     lastName: Yup.string()
@@ -68,16 +68,16 @@ const FormSignUp = ({ userDetails }) => {
         <Formik
           validationSchema={CommentSchema}
           initialValues={{
-            name: userDetails ? userDetails.name : "",
-            lastName: userDetails ? userDetails.lastName : "",
-            age: userDetails ? userDetails.age : "",
-            email: userDetails ? userDetails.email : "",
-            street: userDetails ? userDetails.street : "",
-            zipCode: userDetails ? userDetails.zipCode : null,
-            city: userDetails ? userDetails.city : "",
-            civility: userDetails ? userDetails.civility : "",
-            role: userDetails ? userDetails.role : "user",
-            password: userDetails ? userDetails.password : "",
+            name: "",
+            lastName: "",
+            age: "",
+            email: "",
+            street: "",
+            zipCode: null,
+            city: "",
+            civility: "",
+            role: "user",
+            password: "",
             confirm_password: "",
           }}
           onSubmit={handleFormSubmit}
